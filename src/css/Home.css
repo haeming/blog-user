@@ -1,0 +1,15 @@
+.home-chat-bg{
+    background-color: var(--color-custom-white);
+    border-radius: 24px;
+    padding: 2em;
+}
+
+.home-text-blog-info{
+    color: var(--color-custom-red3);
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.home-text-bold{
+    color: var(--color-custom-red3);
+}
