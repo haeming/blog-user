@@ -1,7 +1,40 @@
-@import "bootstrap/dist/css/bootstrap.min.css";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* 프로젝트 커스텀 CSS는 여기부터 */
+:root{
+    --color-custom-white: #fefefe;
+    --color-custom-gray: #f9fafb;
+    --color-custom-whitegray: #f4f4f4;
+    --color-custom-gray0: rgba(244, 244, 244, 0.33);
+    --color-custom-gray1: #bdbdbd;
+    --color-custom-gray2: #999999;
+    --color-custom-gray3: #6e6d6d;
+    --color-custom-blue: #5aa1f6;
+    --color-custom-blue2: #7cace1;
+    --color-custom-orange: #fdc34f;
+    --color-custom-orange2: #edac18;
+    --color-custom-purple: #b25cd5;
+    --color-custom-purple2: #cd98e1;
+    --color-custom-purple3: #a572ac;
+    --color-custom-purple4: #936699;
+    --color-custom-red: rgba(250, 110, 150, 0.13);
+    --color-custom-red1: #efa4cb;
+    --color-custom-red2: #ea8dbc;
+    --color-custom-red3: #e41b60;
+    --color-custom-whiteBlue: #b3d9e6;
+    --color-custom-whiteBlue2: #9abbc6;
+
+    /* 폰트 사이즈 커스텀 */
+    --text-tiny: 0.75rem;
+    --text-tiny2: 0.9rem;
+    --text-topmenu: 1rem;
+    --text-xxl: 2rem;
+    --text-title: 1.5rem;
+}
+
+/* 스크롤바 숨기기 */
+/*body::-webkit-scrollbar {*/
+/*    display: none; !* Chrome, Safari, Opera *!*/
+/*}*/
