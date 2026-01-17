@@ -4,6 +4,10 @@
     border-bottom: 1px solid var(--color-custom-gray5);
 }
 
+.top-home{
+    cursor: pointer;
+}
+
 /* Outlet과 동일한 기준 컨테이너 */
 .top-inner {
     width: 100%;
