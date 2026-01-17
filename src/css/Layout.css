@@ -1,3 +1,4 @@
 .home-bg{
-    background-color: var(--color-custom-white);
+    /*background-color: var(--color-custom-white);*/
+    background-color: var(--color-custom-red);
 }

@@ -3,8 +3,8 @@ import {Outlet} from "react-router-dom";
 
 export default function Layout(){
     return (
-        <div className="home-bg w-full">
-            <div className="w-full md:max-w-4xl mx-auto px-0 md:px-4">
+        <div className="min-h-screen home-bg p-3">
+            <div className="w-full mx-auto px-0 md:px-4 md:max-w-4xl md:pt-20">
                 <Outlet/>
             </div>
         </div>

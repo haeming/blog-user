@@ -1,9 +1,12 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* 프로젝트 커스텀 CSS는 여기부터 */
 :root{
+    --color-custom-black: #333333;
     --color-custom-white: #fefefe;
     --color-custom-gray: #f9fafb;
     --color-custom-whitegray: #f4f4f4;
@@ -38,3 +41,10 @@
 /*body::-webkit-scrollbar {*/
 /*    display: none; !* Chrome, Safari, Opera *!*/
 /*}*/
+
+html {
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Apple SD Gothic Neo", sans-serif;
+
+    color: var(--color-custom-black);
+}
