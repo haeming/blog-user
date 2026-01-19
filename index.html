@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/guest_tab_logo.png" />
@@ -8,17 +8,40 @@
     <meta name="theme-color" content="#ffffff" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
+    <!-- SEO (검색 결과용) -->
+    <title>HaemStory | 개발 기록과 성장 과정</title>
+    <meta
+            name="description"
+            content="HaemStory는 개발 기록과 기술 아카이브를 정리한 개인 기술 블로그입니다."
+    />
+
     <!-- Open Graph / 검색 엔진 최적화 -->
     <meta property="og:title" content="HaemCake" />
-    <meta property="og:description" content="안녕하세요. HaemCake Blog입니다." />
-<!--    <meta property="og:image" content="https://blog.haemcake.com/homeBanner.png" />-->
-<!--    <meta property="og:url" content="https://blog.haemcake.com" />-->
+    <meta property="og:description" content="개인 개발 기록 블로그 HaemCake입니다." />
+    <meta property="og:image" content="https://blog.haemstory.com/homebanner.png" />
+    <meta property="og:url" content="https://blog.haemstory.com" />
     <meta property="og:type" content="website" />
 
     <title>HaemCake</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N5E0J04ZFJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-N5E0J04ZFJ');
+    </script>
+
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- 크롤러/SEO 안전장치 -->
+    <noscript>
+      HaemCake는 개발 기록을 공유하는 개인 기술 블로그입니다.
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

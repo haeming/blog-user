@@ -4,9 +4,6 @@ export default {
       "./index.html",
       "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  corePlugins: {
-    preflight: false, // Bootstrap reset/typography 충돌 방지
-  },
   theme: {
     extend: {},
   },
