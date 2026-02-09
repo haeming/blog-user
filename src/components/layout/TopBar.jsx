@@ -1,6 +1,6 @@
-import "../css/TopBar.css"
+import "./TopBar.css"
 import {useState} from "react";
-import useNaviService from "../commons/hooks/useNaviService.js";
+import useNaviService from "../../hooks/useNaviService.js";
 
 export default function TopBar(){
     const [open, setOpen] = useState(false);

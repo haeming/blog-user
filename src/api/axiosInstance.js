@@ -1,7 +1,7 @@
 import baseURL from "../config/apiBaseUrl.js";
 import axios from "axios";
 
-export const request = async(method, url, data) => {
+export const axiosInstance = async(method, url, data) => {
     try{
         const response = await axios({
             method,
