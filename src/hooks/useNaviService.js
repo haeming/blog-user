@@ -11,5 +11,9 @@ export default function useNaviService(){
         navigate("/");
     }
 
-    return {goToBack, goToHome};
+    const goToPosts = () => {
+        navigate("/posts");
+    }
+
+    return {goToBack, goToHome, goToPosts};
 }

@@ -1,4 +1,5 @@
 import "./Home.css"
+import PostListPreview from "../components/post/PostListPreview.jsx";
 
 export default function Home(){
     return(
@@ -29,6 +30,9 @@ export default function Home(){
                     </p>
                 </div>
             </div>
+
+            <PostListPreview/>
+
         </>
     )
 }

@@ -1,14 +1,20 @@
 import {axiosInstance} from "./axiosInstance.js";
 
 export default function postApi(){
-    const getPost = async (id) => {
-        return await axiosInstance("get", `/api/guest/posts/${id}`, null);
+    const getPost = (id) => {
+        return axiosInstance({
+            method: "get",
+            url: `/api/posts/${id}`,
+        });
     }
 
-    const getPosts = async( page = 0, size = 10, sort="createdAt,desc" ) => {
-        const params = new URLSearchParams({ page, size, sort }).toString();
-        return await axiosInstance("get", `/api/guest/posts?${params}`, null);
-    }
+    const getPosts = (page = 0, size = 10, sort="createdAt,desc") => {
+        return axiosInstance({
+            method: "get",
+            url: "/api/posts",
+            params: { page, size, sort },
+        });
+    };
 
     return {getPost, getPosts};
 }
