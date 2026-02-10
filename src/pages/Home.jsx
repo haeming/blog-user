@@ -1,5 +1,5 @@
 import "./Home.css"
-import PostList from "../components/post/PostList.jsx";
+import PostListPreview from "../components/post/PostListPreview.jsx";
 
 export default function Home(){
     return(
@@ -31,7 +31,7 @@ export default function Home(){
                 </div>
             </div>
 
-            <PostList/>
+            <PostListPreview/>
 
         </>
     )
