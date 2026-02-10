@@ -1,6 +1,7 @@
 import {useEffect, useMemo, useState} from "react";
 import postApi from "../../api/postApi.js";
 import PostItem from "./PostItem.jsx";
+import "./PostList.css";
 
 export default function PostList(){
     const { getPosts } = useMemo(() => postApi(), []);
@@ -22,24 +23,24 @@ export default function PostList(){
         postList();
     }, [page, size, sort, getPosts]);
 
-    if (!posts.length) return <div>게시글이 없습니다.</div>;
+    if (!posts.length) return <div className="post-list-empty">게시글이 없습니다.</div>;
 
     return (
-        <div>
+        <div className="post-list-container">
             {posts.map((post) => (
                 <PostItem
                     key={post.id}
                     post={post}
                     onClick={() => {
-                        // 상세 이동이 필요하면 여기서 라우팅 연결
+                        // 여기서 라우팅 연결
                         // 예: navigate(`/posts/${post.id}`)
                     }}
                 />
             ))}
 
-            <div style={{ marginTop: 12 }}>
+            <div className="post-list-pagination">
                 <button onClick={() => setPage((p) => Math.max(0, p - 1))}>이전</button>
-                <span style={{ margin: "0 8px" }}>{page + 1}</span>
+                <span className="post-list-page-number">{page + 1}</span>
                 <button onClick={() => setPage((p) => p + 1)}>다음</button>
             </div>
         </div>

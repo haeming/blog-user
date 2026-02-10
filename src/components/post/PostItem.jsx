@@ -1,5 +1,6 @@
+import "./PostItem.css";
+
 export default function PostItem({ post, onClick }) {
-    // const title = post?.title ?? "(제목 없음)";
     const title = post?.title ?? "(제목 없음)";
     const summary = post?.summary ?? post?.content ?? "";
     const createdAt = post?.createdAt ? new Date(post.createdAt).toLocaleString() : "";
@@ -7,18 +8,12 @@ export default function PostItem({ post, onClick }) {
     return (
         <div
             onClick={onClick}
-            style={{
-                padding: 12,
-                border: "1px solid #ddd",
-                borderRadius: 8,
-                marginBottom: 10,
-                cursor: onClick ? "pointer" : "default",
-            }}
+            className={`post-item ${!onClick ? 'post-item-no-click' : ''}`}
         >
-            <div style={{ fontWeight: 700 }}>{title}</div>
-            {createdAt && <div style={{ fontSize: 12, opacity: 0.7 }}>{createdAt}</div>}
+            <div className="post-item-title">{title}</div>
+            {createdAt && <div className="post-item-date">{createdAt}</div>}
             {summary && (
-                <div style={{ marginTop: 8, lineHeight: 1.4 }}>
+                <div className="post-item-summary">
                     {summary.length > 120 ? summary.slice(0, 120) + "..." : summary}
                 </div>
             )}
