@@ -1,13 +1,13 @@
 import {useEffect, useMemo, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import postApi from "../../api/postApi.js";
 import PostItem from "./PostItem.jsx";
 import "./PostListPreview.css";
+import useNaviService from "../../hooks/useNaviService.js";
 
 export default function PostListPreview(){
     const { getPosts } = useMemo(() => postApi(), []);
     const [posts, setPosts] = useState([]);
-    const navigate = useNavigate();
+    const naviService = useNaviService();
 
     useEffect(() => {
         const fetchRecentPosts = async() => {
@@ -30,7 +30,7 @@ export default function PostListPreview(){
                 <h2 className="post-list-preview-title">최신 글</h2>
                 <button
                     className="view-all-btn"
-                    onClick={() => navigate('/posts')}
+                    onClick={naviService.goToPosts}
                 >
                     전체보기 →
                 </button>
@@ -41,10 +41,7 @@ export default function PostListPreview(){
                     <PostItem
                         key={post.id}
                         post={post}
-                        onClick={() => {
-                            // 상세 이동이 필요하면 여기서 라우팅 연결
-                            // 예: navigate(`/posts/${post.id}`)
-                        }}
+                        onClick={naviService.goToPosts}
                     />
                 ))}
             </div>
