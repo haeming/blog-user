@@ -6,7 +6,7 @@ export default function Layout(){
     return (
         <div className="min-h-screen home-bg">
             <TopBar/>
-            <div className="w-full mx-auto p-3 md:px-4 md:max-w-4xl md:pt-20">
+            <div className="w-full mx-auto p-3 md:px-4 md:max-w-6xl md:pt-20">
                 <Outlet/>
             </div>
         </div>
