@@ -19,7 +19,7 @@ export default function Home(){
                 </div>
                 <div className="md:col-span-9 home-chat-bg my-auto">
                     <p>환영합니다!</p>
-                    <p><span className="home-text-blog-info">HaemCake blog</span> 입니다.</p>
+                    <p><span className="home-text-blog-info">HaemStory blog</span> 입니다.</p>
                     <p>
                         실제
                         <span className="home-text-bold"> 서비스에서 마주한 문제</span>
