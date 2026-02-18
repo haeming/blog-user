@@ -2,6 +2,7 @@
     border-radius: 1em;
     background-color: var(--color-custom-white);
     padding: 2em;
+    text-align: center;
 }
 
 .side-image-option{
