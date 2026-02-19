@@ -1,6 +1,5 @@
 .side-box{
-    border-radius: 1em;
-    background-color: var(--color-custom-white);
+    /*border-radius: 1em;*/
     padding: 2em;
     text-align: center;
 }
@@ -18,4 +17,8 @@
 .side-email-text{
     color: var(--color-sub-script);
     font-size: 0.9em;
+}
+
+.side-bg{
+    background-color: var(--color-side-bg);
 }
