@@ -59,6 +59,15 @@
         display: inline-flex; /* ⭐ block 말고 이게 안전 */
         align-items: center;
     }
+    .top-inner {
+        position: relative;
+    }
+
+    .top-home {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
 @media (min-width: 768px) {
