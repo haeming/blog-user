@@ -14,7 +14,8 @@ export default function PostItem({ post, onClick }) {
             {createdAt && <div className="post-item-date">{createdAt}</div>}
             {summary && (
                 <div className="post-item-summary">
-                    {summary.length > 120 ? summary.slice(0, 120) + "..." : summary}
+                    {/*{summary.length > 120 ? summary.slice(0, 120) + "..." : summary}*/}
+                    {summary}
                 </div>
             )}
         </div>

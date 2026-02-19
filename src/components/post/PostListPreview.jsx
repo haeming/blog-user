@@ -27,7 +27,7 @@ export default function PostListPreview(){
     return (
         <div className="post-list-preview-container">
             <div className="post-list-preview-header">
-                <h1 className="post-list-preview-title">전체 글</h1>
+                <h1 className="post-list-preview-title">최신 글</h1>
                 <button
                     className="view-all-btn"
                     onClick={naviService.goToPosts}

@@ -1,5 +1,5 @@
 .post-item {
-    padding: 20px;
+    padding: 4em 1em;
     border-top: 1px solid #e5e5e5;
     /*border-radius: 12px;*/
     /*margin-bottom: 16px;*/
@@ -19,8 +19,8 @@
 
 .post-item-title {
     font-weight: 700;
-    font-size: 1.15em;
-    color: #1a1a1a;
+    font-size: 1.5em;
+    color: var(--color-post-item-title);
     /*margin-bottom: 8px;*/
     line-height: 1.4;
     word-break: break-word;
@@ -29,18 +29,23 @@
 
 .post-item-date {
     font-size: 0.85em;
-    opacity: 0.6;
-    color: #666;
+    color: var(--color-sub-script);
     margin-bottom: 12px;
 }
 
 .post-item-summary {
     margin-top: 12px;
     line-height: 1.6;
-    color: #444;
+    color: var(--color-sub-script);
     font-size: 0.95em;
     word-break: break-word;
     overflow-wrap: break-word;
+
+    /* 3줄 제한 추가 */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .post-item-no-click {
