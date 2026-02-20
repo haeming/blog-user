@@ -31,7 +31,10 @@
     --color-custom-whiteBlue: #b3d9e6;
     --color-custom-whiteBlue2: #9abbc6;
 
-    --color-home-bg: #f4f4f4;
+    --color-home-bg: #fefefe;
+    --color-side-bg: #f4f4f4;
+    --color-sub-script: #8f8f8f;
+    --color-post-item-title: #1a1a1a;
 
     /* 폰트 사이즈 커스텀 */
     --text-tiny: 0.75rem;

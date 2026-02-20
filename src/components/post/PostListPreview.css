@@ -1,5 +1,5 @@
 .post-list-preview-container {
-    margin-top: 48px;
+    /*margin-top: 48px;*/
 }
 
 .post-list-preview-header {
@@ -10,11 +10,13 @@
 }
 
 .post-list-preview-title {
-    font-size: 1.5em;
+    font-size: 2em;
     font-weight: 700;
     color: var(--color-custom-black);
     padding-bottom: 12px;
+    padding-top:2em;
     border-bottom: 2px solid var(--color-custom-red3);
+    margin: auto;
 }
 
 .post-list-preview-items {
@@ -24,7 +26,7 @@
 .view-all-btn {
     padding: 8px 20px;
     background-color: transparent;
-    border: 1px solid var(--color-custom-gray2);
+    /*border: 1px solid var(--color-custom-gray2);*/
     border-radius: 20px;
     color: var(--color-custom-gray3);
     font-size: 0.9em;

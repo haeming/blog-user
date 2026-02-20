@@ -12,8 +12,7 @@
 .top-inner {
     width: 100%;
     margin: 0 auto;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding: 1em;
 
     display: flex;
     align-items: center;
@@ -59,6 +58,15 @@
     .hamburger {
         display: inline-flex; /* ⭐ block 말고 이게 안전 */
         align-items: center;
+    }
+    .top-inner {
+        position: relative;
+    }
+
+    .top-home {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 

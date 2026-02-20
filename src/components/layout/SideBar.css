@@ -1,0 +1,24 @@
+.side-box{
+    /*border-radius: 1em;*/
+    padding: 2em;
+    text-align: center;
+}
+
+.side-image-option{
+    margin-bottom: 2em;
+}
+
+.side-name-text{
+    font-style: italic;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.side-email-text{
+    color: var(--color-sub-script);
+    font-size: 0.9em;
+}
+
+.side-bg{
+    background-color: var(--color-side-bg);
+}
