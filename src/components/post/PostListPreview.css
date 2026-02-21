@@ -33,6 +33,7 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
+    align-self: flex-end; /*  전체보기 아래배치  */
 }
 
 .view-all-btn:hover {
@@ -43,4 +44,22 @@
 
 .view-all-btn:active {
     transform: translateX(2px);
+}
+
+/* 📱 모바일 */
+@media (max-width: 768px) {
+    .post-list-preview-header {
+        flex-direction: column;   /* 세로 배치 */
+        align-items: center;      /* 타이틀 중앙 */
+    }
+
+    .post-list-preview-title {
+        text-align: center;
+        width: 100%;
+    }
+
+    .view-all-btn {
+        align-self: flex-end;     /* 버튼만 오른쪽 */
+        margin-top: 8px;
+    }
 }

@@ -8,7 +8,7 @@ export default function TopBar(){
 
     return(
         <>
-            <header className="top-bg">
+            <header className="top-bg top-fix">
                 <div className="top-inner">
                     <div className="top-home" onClick={naviService.goToHome}>HOME</div>
 

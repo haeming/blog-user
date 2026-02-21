@@ -1,4 +1,15 @@
-.home-bg{
+.home-bg {
     /*background-color: var(--color-custom-white);*/
     background-color: var(--color-home-bg);
+}
+
+.content-area {
+    width: 100%;
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .content-area {
+        padding-top: 56px;
+    }
 }
