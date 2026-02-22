@@ -10,7 +10,10 @@ export default function Layout(){
 
     return (
         <div className="min-h-screen home-bg">
-            <TopBar/>
+            {/* 모바일 블러 바 */}
+            <div className="mobile-blur-bar" />
+
+            {/*<TopBar/>*/}
 
             {/* 모바일 버튼 (md 미만에서만 표시) */}
             <div className="md:hidden fixed top-3 left-3 z-50">

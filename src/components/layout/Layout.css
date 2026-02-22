@@ -10,6 +10,21 @@
 
 @media (max-width: 768px) {
     .content-area {
-        padding-top: 56px;
+        padding-top: 1em;
+    }
+
+    .mobile-blur-bar {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4em;
+        z-index: 30;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background-color: rgba(255, 255, 255, 0.6);
+        /*border-bottom: 1px solid rgba(0, 0, 0, 0.06);*/
+        pointer-events: none;
     }
 }
