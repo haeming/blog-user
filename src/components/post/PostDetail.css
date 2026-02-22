@@ -1,0 +1,196 @@
+.post-detail-wrapper {
+    padding: 2em 0 6em 0;
+}
+
+/* 뒤로가기 */
+.post-detail-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: var(--color-sub-script);
+    padding: 0;
+    margin-bottom: 2.5em;
+    transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.post-detail-back-btn:hover {
+    color: var(--color-custom-red3);
+    gap: 0.6em;
+}
+
+.post-detail-back-arrow {
+    font-size: 1.1em;
+    transition: transform 0.2s ease;
+}
+
+.post-detail-back-btn:hover .post-detail-back-arrow {
+    transform: translateX(-3px);
+}
+
+/* 헤더 영역 */
+.post-detail-header {
+    margin-bottom: 2em;
+    padding-bottom: 1.5em;
+    border-bottom: 2px solid var(--color-custom-red3);
+}
+
+.post-detail-title {
+    font-size: 2.2em;
+    font-weight: 800;
+    color: var(--color-custom-black);
+    line-height: 1.35;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    margin-bottom: 0.8em;
+}
+
+.post-detail-meta {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
+.post-detail-date {
+    font-size: 0.85em;
+    color: var(--color-sub-script);
+}
+
+.post-detail-divider {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: var(--color-custom-gray1);
+}
+
+.post-detail-updated {
+    font-size: 0.85em;
+    color: var(--color-sub-script);
+    font-style: italic;
+}
+
+/* 본문 영역 */
+.post-detail-body {
+    font-size: 1.05em;
+    line-height: 1.9;
+    color: var(--color-post-detail-body);
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+/* 본문 내 요소 스타일 */
+.post-detail-body p {
+    margin-bottom: 1.4em;
+}
+
+.post-detail-body h2 {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: var(--color-custom-black);
+    margin: 2em 0 0.8em;
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid var(--color-custom-gray5);
+}
+
+.post-detail-body h3 {
+    font-size: 1.15em;
+    font-weight: 700;
+    color: var(--color-custom-black);
+    margin: 1.6em 0 0.6em;
+}
+
+.post-detail-body blockquote {
+    margin: 1.6em 0;
+    padding: 1em 1.4em;
+    border-left: 3px solid var(--color-custom-red3);
+    background-color: var(--color-post-detail-quote-bg);
+    border-radius: 0 8px 8px 0;
+    color: var(--color-sub-script);
+    font-style: italic;
+}
+
+.post-detail-body code {
+    background-color: var(--color-post-detail-code-bg);
+    padding: 0.2em 0.45em;
+    border-radius: 4px;
+    font-size: 0.88em;
+    color: var(--color-custom-red3);
+    font-family: "Fira Code", "Consolas", monospace;
+}
+
+.post-detail-body pre {
+    background-color: var(--color-post-detail-code-bg);
+    border-radius: 10px;
+    padding: 1.4em;
+    overflow-x: auto;
+    margin: 1.6em 0;
+}
+
+.post-detail-body pre code {
+    background: none;
+    padding: 0;
+    color: var(--color-custom-black);
+}
+
+/* 하단 */
+.post-detail-footer {
+    margin-top: 4em;
+    padding-top: 2em;
+    border-top: 1px solid var(--color-custom-gray5);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post-detail-list-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.7em 1.4em;
+    background: none;
+    border: 1px solid var(--color-custom-gray4);
+    border-radius: 20px;
+    font-size: 0.9em;
+    color: var(--color-custom-gray3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.post-detail-list-btn:hover {
+    border-color: var(--color-custom-red3);
+    color: var(--color-custom-red3);
+    transform: translateX(3px);
+}
+
+/* 로딩 / 에러 */
+.post-detail-loading,
+.post-detail-error {
+    margin-top: 4em;
+    text-align: center;
+    padding: 5em 1em;
+    color: var(--color-sub-script);
+    font-size: 1em;
+}
+
+.post-detail-error {
+    color: var(--color-custom-red3);
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+    .post-detail-title {
+        font-size: 1.6em;
+    }
+
+    .post-detail-body {
+        font-size: 1em;
+    }
+
+    .post-detail-wrapper {
+        padding: 1em 0 4em 0;
+    }
+}

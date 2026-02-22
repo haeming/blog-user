@@ -2,6 +2,7 @@ import {useEffect, useMemo, useState} from "react";
 import postApi from "../../api/postApi.js";
 import PostItem from "./PostItem.jsx";
 import "./PostList.css";
+import useNaviService from "../../hooks/useNaviService.js";
 
 // 게시판 페이지(/posts)에서 사용하는 전체 목록 컴포넌트 (페이징 포함)
 export default function PostList(){
@@ -11,6 +12,8 @@ export default function PostList(){
     const [size] = useState(10);
     const [sort] = useState("createdAt,desc");
     const [totalPages, setTotalPages] = useState(0);
+
+    const naviService = useNaviService();
 
     useEffect(() => {
         const postList = async() => {
@@ -47,8 +50,7 @@ export default function PostList(){
                     key={post.id}
                     post={post}
                     onClick={() => {
-                        // 상세 이동이 필요하면 여기서 라우팅 연결
-                        // 예: navigate(`/posts/${post.id}`)
+                        naviService.goToPost(post.id)
                     }}
                 />
             ))}

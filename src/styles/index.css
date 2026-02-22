@@ -36,6 +36,10 @@
     --color-sub-script: #8f8f8f;
     --color-post-item-title: #1a1a1a;
 
+    --color-post-detail-body: #2d2d2d;
+    --color-post-detail-quote-bg: rgba(228, 27, 96, 0.04);
+    --color-post-detail-code-bg: #f6f6f6;
+
     /* 폰트 사이즈 커스텀 */
     --text-tiny: 0.75rem;
     --text-tiny2: 0.9rem;
