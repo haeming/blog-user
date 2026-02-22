@@ -1,8 +1,8 @@
 import {useEffect, useMemo, useState} from "react";
-import postApi from "../../api/postApi.js";
+import postApi from "../../../api/postApi.js";
 import PostItem from "./PostItem.jsx";
 import "./PostList.css";
-import useNaviService from "../../hooks/useNaviService.js";
+import useNaviService from "../../../hooks/useNaviService.js";
 
 // 게시판 페이지(/posts)에서 사용하는 전체 목록 컴포넌트 (페이징 포함)
 export default function PostList(){
@@ -34,10 +34,7 @@ export default function PostList(){
     // 페이지 번호 배열 생성 (현재 페이지 기준 앞뒤 2개씩)
     const getPageNumbers = () => {
         const pages = [];
-        const startPage = Math.max(0, page - 2);
-        const endPage = Math.min(totalPages - 1, page + 2);
-
-        for (let i = startPage; i <= endPage; i++) {
+        for (let i = 0; i < totalPages; i++) {
             pages.push(i);
         }
         return pages;
@@ -45,6 +42,9 @@ export default function PostList(){
 
     return (
         <div className="post-list-container">
+            <div className="post-list-preview-header">
+                <h1 className="post-list-preview-title">전체 글</h1>
+            </div>
             {posts.map((post) => (
                 <PostItem
                     key={post.id}
