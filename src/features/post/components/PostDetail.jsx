@@ -1,8 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
+import Prism from "prismjs";
+import "prismjs/themes/prism-okaidia.css";
 import postApi from "../../../api/postApi.js";
 import useNaviService from "../../../hooks/useNaviService.js";
 import { formatDate } from "../../../utils/dateUtils.js";
+import baseURL from "../../../config/apiBaseUrl.js";
 import "./PostDetail.css";
 
 export default function PostDetail() {
@@ -29,6 +34,26 @@ export default function PostDetail() {
         fetchPost();
     }, [id, getPost]);
 
+    // hooks는 항상 위에 (조건부 return 전에)
+    const htmlContent = useMemo(() => {
+        if (!post?.content) return "";
+        let content = post.content
+            .split("\n")
+            .map(line => line.trimStart())
+            .join("\n");
+
+        console.log("content:", content);          // 정규화된 마크다운
+        const rawHtml = marked.parse(content);
+        console.log("rawHtml:", rawHtml);          // 파싱된 HTML
+
+        return DOMPurify.sanitize(rawHtml, { ADD_TAGS: ["br"] });
+    }, [post]);
+
+    useLayoutEffect(() => {
+        if (htmlContent) Prism.highlightAll();
+    }, [htmlContent]);
+
+    // 조건부 return은 hooks 다음에
     if (loading) return <div className="post-detail-loading">불러오는 중...</div>;
     if (error)   return <div className="post-detail-error">{error}</div>;
     if (!post)   return <div className="post-detail-error">게시글이 존재하지 않습니다.</div>;
@@ -63,9 +88,10 @@ export default function PostDetail() {
             </div>
 
             {/* 본문 */}
-            <div className="post-detail-body">
-                {post.content ?? ""}
-            </div>
+            <div
+                className="post-detail-body"
+                dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
 
             {/* 하단 목록 버튼 */}
             <div className="post-detail-footer">
