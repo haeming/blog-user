@@ -61,12 +61,21 @@
     }
     .top-inner {
         position: relative;
+        justify-content: flex-end; /* 햄버거 바 오른쪽 정렬 */
     }
 
     .top-home {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+    }
+
+    .top-fix {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
     }
 }
 

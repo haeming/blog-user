@@ -1,4 +1,5 @@
 import "./Layout.css"
+import "./SideBar.css"
 import { Outlet } from "react-router-dom";
 import TopBar from "./TopBar.jsx";
 import SideBar from "./SideBar.jsx";
@@ -9,6 +10,9 @@ export default function Layout(){
 
     return (
         <div className="min-h-screen home-bg">
+            {/* 모바일 블러 바 */}
+            <div className="mobile-blur-bar" />
+
             {/*<TopBar/>*/}
 
             {/* 모바일 버튼 (md 미만에서만 표시) */}
@@ -37,10 +41,10 @@ export default function Layout(){
             </aside>
 
             {/* 콘텐츠 영역 */}
-            <div className="w-full md:flex">
+            <div className="w-full md:flex content-area">
 
                 {/* 데스크탑 사이드바 */}
-                <aside className="w-64 hidden side-bg md:block">
+                <aside className="w-64 hidden side-bg side-position md:block">
                     <SideBar/>
                 </aside>
 
