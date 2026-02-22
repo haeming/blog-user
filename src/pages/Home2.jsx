@@ -1,5 +1,5 @@
 import "./Home.css"
-import PostListPreview from "../components/post/PostListPreview.jsx";
+import PostListPreview from "../features/post/components/PostListPreview.jsx";
 
 export default function Home(){
     return(

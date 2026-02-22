@@ -1,5 +1,5 @@
 // pages/PostDetailPage.jsx
-import PostDetail from "../components/post/PostDetail.jsx";
+import PostDetail from "../features/post/components/PostDetail.jsx";
 
 export default function PostDetailPage() {
     return (

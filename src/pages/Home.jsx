@@ -1,12 +1,12 @@
 import "./Home.css"
-import PostListPreview from "../components/post/PostListPreview.jsx";
+import PostListPreview from "../features/post/components/PostListPreview.jsx";
+import PostList from "../features/post/components/PostList.jsx";
 
 export default function Home(){
     return(
         <>
-
-            <PostListPreview/>
-
+            {/*<PostListPreview/>*/}
+            <PostList/>
         </>
     )
 }

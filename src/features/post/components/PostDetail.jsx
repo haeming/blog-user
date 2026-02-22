@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import postApi from "../../api/postApi.js";
-import useNaviService from "../../hooks/useNaviService.js";
+import postApi from "../../../api/postApi.js";
+import useNaviService from "../../../hooks/useNaviService.js";
+import { formatDate } from "../../../utils/dateUtils.js";
 import "./PostDetail.css";
 
 export default function PostDetail() {
@@ -32,9 +33,9 @@ export default function PostDetail() {
     if (error)   return <div className="post-detail-error">{error}</div>;
     if (!post)   return <div className="post-detail-error">게시글이 존재하지 않습니다.</div>;
 
-    const createdAt  = post.createdAt  ? new Date(post.createdAt).toLocaleString()  : null;
-    const updatedAt  = post.updatedAt  ? new Date(post.updatedAt).toLocaleString()  : null;
-    const isUpdated  = post.updatedAt && post.updatedAt !== post.createdAt;
+    const createdAt = formatDate(post.createdAt);
+    const updatedAt = formatDate(post.updatedAt);
+    const isUpdated = post.updatedAt && post.updatedAt !== post.createdAt;
 
     return (
         <div className="post-detail-wrapper">
