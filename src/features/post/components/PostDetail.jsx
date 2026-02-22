@@ -4,6 +4,9 @@ import { marked } from "marked";
 import DOMPurify from "dompurify";
 import Prism from "prismjs";
 import "prismjs/themes/prism-okaidia.css";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-java";
 import postApi from "../../../api/postApi.js";
 import useNaviService from "../../../hooks/useNaviService.js";
 import { formatDate } from "../../../utils/dateUtils.js";
@@ -37,15 +40,14 @@ export default function PostDetail() {
     // hooks는 항상 위에 (조건부 return 전에)
     const htmlContent = useMemo(() => {
         if (!post?.content) return "";
-        let content = post.content
-            .split("\n")
-            .map(line => line.trimStart())
-            .join("\n");
+        let content = post.content;
 
-        console.log("content:", content);          // 정규화된 마크다운
+        content = content.replace(
+            /!\[([^\]]*)\]\((\/uploadFiles\/[^)]+)\)/g,
+            (match, alt, path) => `![${alt}](${encodeURI(`${baseURL}${path}`)})`
+        );
+
         const rawHtml = marked.parse(content);
-        console.log("rawHtml:", rawHtml);          // 파싱된 HTML
-
         return DOMPurify.sanitize(rawHtml, { ADD_TAGS: ["br"] });
     }, [post]);
 
