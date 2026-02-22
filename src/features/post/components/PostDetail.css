@@ -245,8 +245,8 @@
 }
 
 .post-detail-body pre {
-    background-color: var(--color-custom-black);
-    color: var(--color-custom-white);
+    background-color: var(--color-custom-gray);
+    color: var(--color-custom-black);
     border-radius: 8px;
     padding: 1.2em;
     overflow-x: auto;
@@ -272,6 +272,92 @@
     color: var(--color-custom-red3);
     text-decoration: underline;
     text-underline-offset: 2px;
+}
+
+/* ===== Java ===== */
+.language-java .token.keyword { color: var(--color-code-keyword); font-weight: 600; }
+.language-java .token.class-name { color: var(--color-code-class); }
+.language-java .token.function { color: var(--color-code-function); }
+.language-java .token.string { color: var(--color-code-string); }
+.language-java .token.comment { color: var(--color-code-comment); font-style: italic; }
+.language-java .token.number { color: var(--color-code-number); }
+.language-java .token.annotation { color: var(--color-code-annotation); }
+.language-java .token.punctuation { color: var(--color-code-punctuation);}
+
+.language-python .token.keyword { color: var(--color-code-keyword); font-weight: 600; }
+.language-python .token.function { color: var(--color-code-function); }
+.language-python .token.string { color: var(--color-code-string); }
+.language-python .token.comment { color: var(--color-code-comment); font-style: italic; }
+.language-python .token.number { color: var(--color-code-number); }
+
+.language-javascript .token.keyword { color: var(--color-code-keyword); font-weight: 600; }
+.language-javascript .token.function { color: var(--color-code-function); }
+.language-javascript .token.string { color: var(--color-code-string); }
+.language-javascript .token.comment { color: var(--color-code-comment); font-style: italic; }
+.language-javascript .token.number { color: var(--color-code-number); }
+
+/* ===== Python ===== */
+.language-python .token.keyword {
+    color: #f78c6c;
+    font-weight: 600;
+}
+
+.language-python .token.function {
+    color: #82aaff;
+}
+
+.language-python .token.string {
+    color: #c3e88d;
+}
+
+.language-python .token.number {
+    color: #ffcb6b;
+}
+
+/* ===== JavaScript ===== */
+.language-javascript .token.keyword {
+    color: #c792ea;
+    font-weight: 600;
+}
+
+.language-javascript .token.function {
+    color: #82aaff;
+}
+
+.language-javascript .token.string {
+    color: #ecc48d;
+}
+
+.language-javascript .token.number {
+    color: #f78c6c;
+}
+
+/* ===== 공통 기호 강조 ===== */
+
+.post-detail-body pre .token.punctuation {
+    color: var(--color-code-function);
+}
+
+.post-detail-body pre .token.operator {
+    color: var(--color-custom-purple4);
+}
+
+.post-detail-body pre .token.template-punctuation {
+    color: var(--color-custom-red3);
+}
+
+.post-detail-body pre .token.interpolation {
+    color: var(--color-custom-blue2);
+}
+
+.post-detail-body pre .token.annotation.punctuation {
+    color: var(--color-code-annotation-punctuation);
+}
+
+/* 기본 쉐도우 속성 빼기 */
+.post-detail-body pre,
+.post-detail-body pre .token {
+    text-shadow: none !important;
 }
 
 /* 모바일 */

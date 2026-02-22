@@ -40,6 +40,19 @@
     --color-post-detail-quote-bg: rgba(228, 27, 96, 0.04);
     --color-post-detail-code-bg: #f6f6f6;
 
+    /* intelliJ 스타일 */
+    --color-code-keyword: #4594ff;
+    --color-code-class: #a777ff;
+    --color-code-function: #272305;
+    --color-code-string: #6a8759;
+    --color-code-comment: rgba(12, 147, 7, 0.72);
+    --color-code-number: #6897bb;
+    --color-code-annotation: #959105;
+    --color-code-bg: #2b2b2b;
+    --color-code-text: rgba(64, 87, 255, 0.84);
+    --color-code-punctuation: #b1a139;
+    --color-code-annotation-punctuation: #c8a00a;
+
     /* 폰트 사이즈 커스텀 */
     --text-tiny: 0.75rem;
     --text-tiny2: 0.9rem;
