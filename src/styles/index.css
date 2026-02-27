@@ -53,6 +53,8 @@
     --color-code-punctuation: #b1a139;
     --color-code-annotation-punctuation: #c8a00a;
 
+    --color-js-code-string: #9a8e16;
+
     /* 폰트 사이즈 커스텀 */
     --text-tiny: 0.75rem;
     --text-tiny2: 0.9rem;
