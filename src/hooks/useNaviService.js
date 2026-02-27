@@ -11,12 +11,12 @@ export default function useNaviService(){
         navigate("/");
     }
 
-    const goToPosts = () => {
-        navigate("/posts");
+    const goToPosts = (state) => {
+        navigate("/posts", state ? { state } : undefined);
     }
 
-    const goToPost = (id) => {
-        navigate(`/posts/${id}`);
+    const goToPost = (id, state) => {
+        navigate(`/posts/${id}`, state ? { state } : undefined);
     }
 
     return {goToBack, goToHome, goToPosts, goToPost};
