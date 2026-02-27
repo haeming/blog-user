@@ -48,6 +48,7 @@ export default function PostDetail() {
             (match, alt, path) => `![${alt}](${encodeURI(`${baseURL}${path}`)})`
         );
 
+        marked.use({ breaks: true });
         const rawHtml = marked.parse(content);
         return DOMPurify.sanitize(rawHtml, { ADD_TAGS: ["br"] });
     }, [post]);
