@@ -1,9 +1,10 @@
 import "./PostItem.css";
+import { formatDate } from "../../../utils/dateUtils.js"
 
 export default function PostItem({ post, onClick }) {
     const title = post?.title ?? "(제목 없음)";
     const summary = post?.summary ?? post?.content ?? "";
-    const createdAt = post?.createdAt ? new Date(post.createdAt).toLocaleString() : "";
+    const createdAt = formatDate(post?.createdAt);
 
     return (
         <div

@@ -1,8 +1,8 @@
 import {useEffect, useMemo, useState} from "react";
-import postApi from "../../api/postApi.js";
+import postApi from "../../../api/postApi.js";
 import PostItem from "./PostItem.jsx";
 import "./PostListPreview.css";
-import useNaviService from "../../hooks/useNaviService.js";
+import useNaviService from "../../../hooks/useNaviService.js";
 
 export default function PostListPreview(){
     const { getPosts } = useMemo(() => postApi(), []);
