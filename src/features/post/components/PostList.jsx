@@ -1,101 +1,72 @@
-import {useEffect, useMemo, useRef, useState} from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import postApi from "../../../api/postApi.js";
 import PostItem from "./PostItem.jsx";
 import "./PostList.css";
 import useNaviService from "../../../hooks/useNaviService.js";
-import {useLocation, useNavigate, useNavigationType} from "react-router-dom";
+import { useNavigationType } from "react-router-dom";
+import useScrollRestore from "../../../utils/useScrollRestore.js"
 
-// 게시판 페이지(/posts)에서 사용하는 전체 목록 컴포넌트 (페이징 포함)
-export default function PostList(){
+export default function PostList() {
     const { getPosts } = useMemo(() => postApi(), []);
     const [posts, setPosts] = useState([]);
-    const location = useLocation();
-    const navigate = useNavigate();
-    const navigationType = useNavigationType();
-    const isPopNavigation = navigationType === "POP";
-    const restoreEligible = location.state?.restoreScroll
-        || sessionStorage.getItem("postListRestoreEligible") === "1"
-        || isPopNavigation;
-    const initialPage = () => {
-        const fromState = location.state?.page;
-        return Number.isFinite(fromState) ? fromState : 0;
-    };
-    const [page, setPage] = useState(initialPage);
     const [size] = useState(10);
     const [sort] = useState("createdAt,desc");
     const [totalPages, setTotalPages] = useState(0);
-
     const naviService = useNaviService();
-    const savedScrollRef = useRef(location.state?.scrollY ?? 0);
-    const shouldRestoreScrollRef = useRef(Boolean(location.state?.restoreScroll));
-    const prevPageRef = useRef(page);
+    const navigationType = useNavigationType();
+
+    const { savedScroll, savedPage, savePage, clear } = useScrollRestore('post-list');
+
+    // POP(뒤로가기)이면 복원, 아니면 0부터
+    const isBack = navigationType === 'POP';
+    const [page, setPage] = useState(isBack ? savedPage : 0);
+    const shouldRestoreRef = useRef(isBack && savedScroll > 0);
+    const restoredRef = useRef(false);
 
     useEffect(() => {
-        const navEntry = performance.getEntriesByType("navigation")[0];
-        const isReload = navEntry?.type === "reload" || performance.navigation?.type === 1;
-        if (!isReload) return;
-        sessionStorage.removeItem("postListRestoreEligible");
-        sessionStorage.removeItem("postListScrollY");
-        shouldRestoreScrollRef.current = false;
-        requestAnimationFrame(() => {
-            window.scrollTo(0, 0);
-        });
+        if (!isBack) clear();
     }, []);
 
     useEffect(() => {
-        const postList = async() => {
-            try{
+        const postList = async () => {
+            try {
                 const response = await getPosts(page, size, sort);
-                console.log(response);
                 setPosts(response.content || []);
                 setTotalPages(response.totalPages || 0);
-            }catch(e){
+            } catch (e) {
                 console.error("postList 불러오기 에러", e);
             }
-        }
+        };
         postList();
     }, [page, size, sort, getPosts]);
 
+    // 스크롤 복원: posts가 로드되고 아직 복원 안 했을 때
     useEffect(() => {
-        if (prevPageRef.current === page) return;
-        if (shouldRestoreScrollRef.current) {
-            prevPageRef.current = page;
-            return;
-        }
-        requestAnimationFrame(() => {
-            window.scrollTo(0, 0);
-        });
-        prevPageRef.current = page;
-    }, [page]);
-
-    useEffect(() => {
-        if (!shouldRestoreScrollRef.current) return;
+        if (!shouldRestoreRef.current) return;
         if (!posts.length) return;
+        if (restoredRef.current) return;
 
-        // requestAnimationFrame 한 번으로는 DOM 반영이 안 될 수 있어서 두 번 중첩
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-                window.scrollTo(0, savedScrollRef.current);
-                shouldRestoreScrollRef.current = false;
+                window.scrollTo(0, savedScroll);
+                restoredRef.current = true;
+                shouldRestoreRef.current = false;
             });
         });
     }, [posts]);
 
     const handlePageChange = (nextPage) => {
-        shouldRestoreScrollRef.current = false;
-        sessionStorage.removeItem("postListRestoreEligible");
-        sessionStorage.removeItem("postListScrollY");
+        shouldRestoreRef.current = false;
+        savePage(nextPage);
         setPage(nextPage);
+        window.scrollTo(0, 0);
     };
 
     if (!posts.length) return <div className="post-list-empty">게시글이 없습니다.</div>;
 
-    // 페이지 번호 배열 생성 (현재 페이지 기준 앞뒤 2개씩)
     const getPageNumbers = () => {
         const pages = [];
-        for (let i = 0; i < totalPages; i++) {
-            pages.push(i);
-        }
+        for (let i = 0; i < totalPages; i++) pages.push(i);
         return pages;
     };
 
@@ -109,33 +80,15 @@ export default function PostList(){
                     key={post.id}
                     post={post}
                     onClick={() => {
-                        const scrollY = window.scrollY || 0;
-                        // 현재 /posts history entry에 state를 저장
-                        navigate("/posts", {
-                            state: { page, scrollY, restoreScroll: true },
-                            replace: true  // 현재 entry를 교체
-                        });
+                        savePage(page);
                         naviService.goToPost(post.id);
                     }}
                 />
             ))}
 
             <div className="post-list-pagination">
-                <button
-                    onClick={() => handlePageChange(0)}
-                    disabled={page === 0}
-                    className="pagination-btn-first"
-                >
-                    ««
-                </button>
-                <button
-                    onClick={() => handlePageChange(Math.max(0, page - 1))}
-                    disabled={page === 0}
-                    className="pagination-btn-prev"
-                >
-                    ‹
-                </button>
-
+                <button onClick={() => handlePageChange(0)} disabled={page === 0} className="pagination-btn-first">««</button>
+                <button onClick={() => handlePageChange(Math.max(0, page - 1))} disabled={page === 0} className="pagination-btn-prev">‹</button>
                 {getPageNumbers().map((pageNum) => (
                     <button
                         key={pageNum}
@@ -145,21 +98,8 @@ export default function PostList(){
                         {pageNum + 1}
                     </button>
                 ))}
-
-                <button
-                    onClick={() => handlePageChange(page + 1)}
-                    disabled={page >= totalPages - 1}
-                    className="pagination-btn-next"
-                >
-                    ›
-                </button>
-                <button
-                    onClick={() => handlePageChange(totalPages - 1)}
-                    disabled={page >= totalPages - 1}
-                    className="pagination-btn-last"
-                >
-                    »»
-                </button>
+                <button onClick={() => handlePageChange(page + 1)} disabled={page >= totalPages - 1} className="pagination-btn-next">›</button>
+                <button onClick={() => handlePageChange(totalPages - 1)} disabled={page >= totalPages - 1} className="pagination-btn-last">»»</button>
             </div>
         </div>
     );

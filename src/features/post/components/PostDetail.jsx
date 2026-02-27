@@ -74,7 +74,7 @@ export default function PostDetail() {
             {/* 뒤로가기 */}
             <button
                 className="post-detail-back-btn"
-                onClick={() => (listState ? naviService.goToPosts(listState) : naviService.goToBack())}
+                onClick={() => naviService.goToBack()}
             >
                 <span className="post-detail-back-arrow">←</span>
                 목록으로
@@ -106,7 +106,7 @@ export default function PostDetail() {
             <div className="post-detail-footer">
                 <button
                     className="post-detail-list-btn"
-                    onClick={() => (listState ? naviService.goToPosts(listState) : naviService.goToBack())}
+                    onClick={() => naviService.goToBack()}
                 >
                     목록 보기 →
                 </button>
