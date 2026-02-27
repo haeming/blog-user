@@ -38,19 +38,26 @@ export default function PostDetail() {
         fetchPost();
     }, [id, getPost]);
 
-    // hooks는 항상 위에 (조건부 return 전에)
     const htmlContent = useMemo(() => {
         if (!post?.content) return "";
+
         let content = post.content;
 
         content = content.replace(
             /!\[([^\]]*)\]\((\/uploadFiles\/[^)]+)\)/g,
-            (match, alt, path) => `![${alt}](${encodeURI(`${baseURL}${path}`)})`
+            (match, alt, path) =>
+                `![${alt}](${encodeURI(`${baseURL}${path}`)})`
         );
 
-        marked.use({ breaks: true });
-        const rawHtml = marked.parse(content);
-        return DOMPurify.sanitize(rawHtml, { ADD_TAGS: ["br"] });
+        // 엔터 3개 이상을 강제 문단으로 변환
+        content = content.replace(/\n{3,}/g, "\n\n&nbsp;\n\n");
+
+        const rawHtml = marked.parse(content, {
+            breaks: true,
+            gfm: true
+        });
+
+        return DOMPurify.sanitize(rawHtml);
     }, [post]);
 
     useLayoutEffect(() => {
