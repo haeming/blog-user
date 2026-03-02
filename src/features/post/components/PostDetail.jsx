@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 import Prism from "prismjs";
@@ -23,7 +23,6 @@ export default function PostDetail() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const naviService = useNaviService();
-    const location = useLocation();
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -103,9 +102,6 @@ export default function PostDetail() {
     const createdAt = formatDate(post.createdAt);
     const updatedAt = formatDate(post.updatedAt);
     const isUpdated = post.updatedAt && post.updatedAt !== post.createdAt;
-    const listState = location.state && location.state.restoreScroll
-        ? location.state
-        : null;
 
     return (
         <div className="post-detail-wrapper">
