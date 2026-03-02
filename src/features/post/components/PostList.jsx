@@ -31,6 +31,13 @@ export default function PostList() {
         const postList = async () => {
             try {
                 const response = await getPosts(page, size, sort);
+
+                // 페이지 범위 보정
+                if (page >= response.totalPages && response.totalPages > 0) {
+                    setPage(response.totalPages - 1);
+                    return;
+                }
+
                 setPosts(response.content || []);
                 setTotalPages(response.totalPages || 0);
             } catch (e) {
