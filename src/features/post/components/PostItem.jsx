@@ -18,8 +18,7 @@ export default function PostItem({ post, onClick }) {
 
         let isMounted = true;
         getCategoryByPostId(post.id)
-            .then((res) => {
-                const data = res?.data;
+            .then((data) => {
                 let name = "";
 
                 if (Array.isArray(data)) {
