@@ -1,42 +1,12 @@
 import "./PostItem.css";
-import { useEffect, useMemo, useState } from "react";
 import { formatDate } from "../../../utils/dateUtils.js";
-import categoryApi from "../../../api/categoryApi.js";
 
 export default function PostItem({ post, onClick }) {
-    const title = post?.title ?? "(?쒕ぉ ?놁쓬)";
+    const title = post?.title ?? "(제목 없음)";
     const summary = post?.summary ?? post?.content ?? "";
     const createdAt = formatDate(post?.createdAt);
-    const { getCategoryByPostId } = useMemo(() => categoryApi(), []);
-    const [categoryName, setCategoryName] = useState("");
 
-    useEffect(() => {
-        if (!post?.id) {
-            setCategoryName("");
-            return;
-        }
-
-        let isMounted = true;
-        getCategoryByPostId(post.id)
-            .then((data) => {
-                let name = "";
-
-                if (Array.isArray(data)) {
-                    name = data[0]?.categoryName ?? data[0]?.name ?? "";
-                } else {
-                    name = data?.categoryName ?? data?.name ?? data?.category?.name ?? "";
-                }
-
-                if (isMounted) setCategoryName(name);
-            })
-            .catch(() => {
-                if (isMounted) setCategoryName("");
-            });
-
-        return () => {
-            isMounted = false;
-        };
-    }, [post?.id, getCategoryByPostId]);
+    const categoryName = post?.categoryName ?? post?.category?.name ?? "";
 
     return (
         <div
