@@ -48,6 +48,26 @@
     margin-bottom: 0.8em;
 }
 
+.post-detail-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.post-detail-category-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25em 0.8em;
+    border-radius: 999px;
+    font-size: 0.75em;
+    font-weight: 600;
+    color: var(--color-custom-red3);
+    background-color: var(--color-custom-red);
+    border: 1px solid rgba(228, 27, 96, 0.15);
+    line-height: 1.1;
+}
+
 .post-detail-meta {
     display: flex;
     align-items: center;

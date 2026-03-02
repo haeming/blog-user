@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 import Prism from "prismjs";
@@ -8,6 +8,7 @@ import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-java";
 import postApi from "../../../api/postApi.js";
+import categoryApi from "../../../api/categoryApi.js";
 import useNaviService from "../../../hooks/useNaviService.js";
 import { formatDate } from "../../../utils/dateUtils.js";
 import baseURL from "../../../config/apiBaseUrl.js";
@@ -16,11 +17,12 @@ import "./PostDetail.css";
 export default function PostDetail() {
     const { id } = useParams();
     const { getPost } = useMemo(() => postApi(), []);
+    const { getCategoryByPostId } = useMemo(() => categoryApi(), []);
     const [post, setPost] = useState(null);
+    const [categoryName, setCategoryName] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const naviService = useNaviService();
-    const location = useLocation();
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -37,6 +39,34 @@ export default function PostDetail() {
         };
         fetchPost();
     }, [id, getPost]);
+
+    useEffect(() => {
+        if (!id) {
+            setCategoryName("");
+            return;
+        }
+
+        let isMounted = true;
+        getCategoryByPostId(id)
+            .then((data) => {
+                let name = "";
+
+                if (Array.isArray(data)) {
+                    name = data[0]?.categoryName ?? data[0]?.name ?? "";
+                } else {
+                    name = data?.categoryName ?? data?.name ?? data?.category?.name ?? "";
+                }
+
+                if (isMounted) setCategoryName(name);
+            })
+            .catch(() => {
+                if (isMounted) setCategoryName("");
+            });
+
+        return () => {
+            isMounted = false;
+        };
+    }, [id, getCategoryByPostId]);
 
     const htmlContent = useMemo(() => {
         if (!post?.content) return "";
@@ -72,9 +102,6 @@ export default function PostDetail() {
     const createdAt = formatDate(post.createdAt);
     const updatedAt = formatDate(post.updatedAt);
     const isUpdated = post.updatedAt && post.updatedAt !== post.createdAt;
-    const listState = location.state && location.state.restoreScroll
-        ? location.state
-        : null;
 
     return (
         <div className="post-detail-wrapper">
@@ -90,7 +117,12 @@ export default function PostDetail() {
 
             {/* 헤더 */}
             <div className="post-detail-header">
-                <h1 className="post-detail-title">{post.title ?? "(제목 없음)"}</h1>
+                <div className="post-detail-title-row">
+                    <h1 className="post-detail-title">{post.title ?? "(제목 없음)"}</h1>
+                    {categoryName && (
+                        <span className="post-detail-category-tag">{categoryName}</span>
+                    )}
+                </div>
                 <div className="post-detail-meta">
                     {createdAt && (
                         <span className="post-detail-date">{createdAt}</span>
