@@ -55,6 +55,12 @@
 
     --color-js-code-string: #9a8e16;
 
+    /* comment 스타일 */
+    --color-comment-avatar-bg: rgba(228, 27, 96, 0.08);
+    --color-comment-avatar-border: rgba(228, 27, 96, 0.2);
+    --color-comment-form-bg: #fafafa;
+    --color-comment-focus-ring: rgba(228, 27, 96, 0.12);
+
     /* 폰트 사이즈 커스텀 */
     --text-tiny: 0.75rem;
     --text-tiny2: 0.9rem;

@@ -1,0 +1,310 @@
+/* ===========================
+   CommentSection.css
+   =========================== */
+
+.comment-section {
+    margin-top: 4em;
+    padding-top: 3em;
+    border-top: 2px solid var(--color-custom-gray5);
+}
+
+/* 섹션 헤더 */
+.comment-section-header {
+    margin-bottom: 1.8em;
+}
+
+.comment-section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 1.15em;
+    font-weight: 700;
+    color: var(--color-custom-black);
+}
+
+.comment-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.6em;
+    height: 1.6em;
+    padding: 0 0.4em;
+    background-color: var(--color-custom-red3);
+    color: var(--color-custom-white);
+    border-radius: 999px;
+    font-size: 0.72em;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* 댓글 목록 */
+.comment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.comment-item {
+    padding: 1.4em 0;
+    border-bottom: 1px solid var(--color-custom-gray5);
+    transition: background-color 0.15s ease;
+}
+
+.comment-item:first-child {
+    border-top: 1px solid var(--color-custom-gray5);
+}
+
+.comment-item-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    margin-bottom: 0.7em;
+}
+
+.comment-avatar {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background-color: var(--color-comment-avatar-bg);
+    color: var(--color-custom-red3);
+    font-size: 0.9em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1.5px solid var(--color-comment-avatar-border);
+}
+
+.comment-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6em;
+    flex-wrap: wrap;
+}
+
+.comment-author {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--color-custom-black);
+}
+
+.comment-date {
+    font-size: 0.78em;
+    color: var(--color-sub-script);
+}
+
+.comment-content {
+    font-size: 0.95em;
+    line-height: 1.75;
+    color: var(--color-post-detail-body);
+    word-break: break-word;
+    overflow-wrap: break-word;
+    padding-left: 2.75em;
+}
+
+/* 빈 댓글 */
+.comment-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6em;
+    padding: 3em 1em;
+    color: var(--color-sub-script);
+    font-size: 0.9em;
+    border: 1px dashed var(--color-custom-gray4);
+    border-radius: 12px;
+}
+
+.comment-empty-icon {
+    font-size: 1.8em;
+    opacity: 0.5;
+}
+
+/* 구분선 */
+.comment-divider {
+    margin: 2.5em 0;
+    border: none;
+    border-top: 1px solid var(--color-custom-gray5);
+}
+
+/* 댓글 입력 폼 */
+.comment-form {
+    background-color: var(--color-comment-form-bg);
+    border: 1px solid var(--color-custom-gray5);
+    border-radius: 14px;
+    padding: 1.8em 2em;
+}
+
+.comment-form-title {
+    font-size: 0.95em;
+    font-weight: 700;
+    color: var(--color-custom-black);
+    margin-bottom: 1.2em;
+}
+
+/* 닉네임 + 비밀번호 행 */
+.comment-form-row {
+    display: flex;
+    gap: 1em;
+    margin-bottom: 0.9em;
+}
+
+.comment-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35em;
+    flex: 1;
+}
+
+.comment-form-label {
+    font-size: 0.78em;
+    font-weight: 600;
+    color: var(--color-sub-script);
+    letter-spacing: 0.02em;
+}
+
+.comment-form-input {
+    padding: 0.6em 0.9em;
+    border: 1px solid var(--color-custom-gray4);
+    border-radius: 8px;
+    font-size: 0.9em;
+    color: var(--color-custom-black);
+    background-color: var(--color-custom-white);
+    font-family: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+.comment-form-input:focus {
+    border-color: var(--color-custom-red3);
+    box-shadow: 0 0 0 3px var(--color-comment-focus-ring);
+}
+
+.comment-form-input::placeholder {
+    color: var(--color-custom-gray1);
+}
+
+/* 텍스트에어리어 */
+.comment-form-textarea-wrap {
+    position: relative;
+    margin-bottom: 0.6em;
+}
+
+.comment-form-textarea {
+    width: 100%;
+    padding: 0.75em 0.9em;
+    padding-bottom: 2em;
+    border: 1px solid var(--color-custom-gray4);
+    border-radius: 8px;
+    font-size: 0.9em;
+    color: var(--color-custom-black);
+    background-color: var(--color-custom-white);
+    font-family: inherit;
+    line-height: 1.7;
+    resize: vertical;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.comment-form-textarea:focus {
+    border-color: var(--color-custom-red3);
+    box-shadow: 0 0 0 3px var(--color-comment-focus-ring);
+}
+
+.comment-form-textarea::placeholder {
+    color: var(--color-custom-gray1);
+}
+
+.comment-char-count {
+    position: absolute;
+    bottom: 0.6em;
+    right: 0.75em;
+    font-size: 0.75em;
+    color: var(--color-custom-gray2);
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.comment-char-warn {
+    color: var(--color-custom-red3);
+    font-weight: 600;
+}
+
+/* 에러 메시지 */
+.comment-form-error {
+    font-size: 0.82em;
+    color: var(--color-custom-red3);
+    margin-bottom: 0.6em;
+}
+
+/* 폼 하단 */
+.comment-form-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* 등록 버튼 */
+.comment-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4em;
+    padding: 0.65em 1.6em;
+    background-color: var(--color-custom-red3);
+    color: var(--color-custom-white);
+    border: none;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
+    min-width: 6em;
+}
+
+.comment-submit-btn:hover:not(:disabled) {
+    background-color: var(--color-custom-red2);
+    transform: translateY(-1px);
+}
+
+.comment-submit-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.comment-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* 로딩 스피너 */
+.comment-submit-spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: comment-spin 0.7s linear infinite;
+}
+
+@keyframes comment-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+    .comment-form {
+        padding: 1.4em 1.2em;
+    }
+
+    .comment-form-row {
+        flex-direction: column;
+        gap: 0.8em;
+    }
+
+    .comment-content {
+        padding-left: 0;
+    }
+}
