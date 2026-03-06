@@ -14,6 +14,31 @@ import { formatDate } from "../../../utils/dateUtils.js";
 import baseURL from "../../../config/apiBaseUrl.js";
 import "./PostDetail.css";
 
+// ─────────────────────────────────────────────────────────────────────────────
+// 🔧 API 미구현 구간 — API 완성 후 이 상수를 제거하고 아래 주석 처리된
+//    useEffect 블록을 활성화하세요.
+//
+// 응답 형태:
+//   { prev: { id, title, excerpt, createdAt } | null,
+//     next: { id, title, excerpt, createdAt } | null }
+// ─────────────────────────────────────────────────────────────────────────────
+const DUMMY_ADJACENT = {
+    prev: {
+        id: "prev-001",
+        title: "React에서 상태 관리를 효율적으로 하는 방법",
+        excerpt:
+            "useState, useReducer, Zustand 등 다양한 상태 관리 옵션을 비교하고, 프로젝트 규모에 따라 어떤 전략을 선택해야 할지 정리합니다.",
+        createdAt: "2025-02-20T10:00:00",
+    },
+    next: {
+        id: "next-001",
+        title: "Tailwind CSS v4 마이그레이션 가이드",
+        excerpt:
+            "기존 v3 프로젝트를 v4로 업그레이드할 때 주의해야 할 Breaking Change와 새로운 유틸리티 클래스 사용법을 정리했습니다.",
+        createdAt: "2025-03-01T10:00:00",
+    },
+};
+
 export default function PostDetail() {
     const { id } = useParams();
     const { getPost } = useMemo(() => postApi(), []);
@@ -22,6 +47,10 @@ export default function PostDetail() {
     const [categoryName, setCategoryName] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    // 🔧 API 연동 시: DUMMY_ADJACENT → { prev: null, next: null } 로 초기값 변경
+    const [adjacent, setAdjacent] = useState(DUMMY_ADJACENT);
+
     const naviService = useNaviService();
 
     useEffect(() => {
@@ -40,53 +69,45 @@ export default function PostDetail() {
         fetchPost();
     }, [id, getPost]);
 
-    useEffect(() => {
-        if (!id) {
-            setCategoryName("");
-            return;
-        }
+    // 🔧 API 구현 후 이 블록의 주석을 해제하고 DUMMY_ADJACENT 상수와 초기값을 제거하세요
+    // useEffect(() => {
+    //     if (!id) return;
+    //     const { getAdjacentPosts } = postApi();
+    //     let isMounted = true;
+    //     getAdjacentPosts(id)
+    //         .then((data) => {
+    //             if (isMounted) setAdjacent({ prev: data?.prev ?? null, next: data?.next ?? null });
+    //         })
+    //         .catch(() => { if (isMounted) setAdjacent({ prev: null, next: null }); });
+    //     return () => { isMounted = false; };
+    // }, [id]);
 
+    useEffect(() => {
+        if (!id) { setCategoryName(""); return; }
         let isMounted = true;
         getCategoryByPostId(id)
             .then((data) => {
                 let name = "";
-
                 if (Array.isArray(data)) {
                     name = data[0]?.categoryName ?? data[0]?.name ?? "";
                 } else {
                     name = data?.categoryName ?? data?.name ?? data?.category?.name ?? "";
                 }
-
                 if (isMounted) setCategoryName(name);
             })
-            .catch(() => {
-                if (isMounted) setCategoryName("");
-            });
-
-        return () => {
-            isMounted = false;
-        };
+            .catch(() => { if (isMounted) setCategoryName(""); });
+        return () => { isMounted = false; };
     }, [id, getCategoryByPostId]);
 
     const htmlContent = useMemo(() => {
         if (!post?.content) return "";
-
         let content = post.content;
-
         content = content.replace(
             /!\[([^\]]*)\]\((\/uploadFiles\/[^)]+)\)/g,
-            (match, alt, path) =>
-                `![${alt}](${encodeURI(`${baseURL}${path}`)})`
+            (match, alt, path) => `![${alt}](${encodeURI(`${baseURL}${path}`)})`
         );
-
-        // 엔터 3개 이상을 강제 문단으로 변환
         content = content.replace(/\n{3,}/g, "\n\n&nbsp;\n\n");
-
-        const rawHtml = marked.parse(content, {
-            breaks: true,
-            gfm: true
-        });
-
+        const rawHtml = marked.parse(content, { breaks: true, gfm: true });
         return DOMPurify.sanitize(rawHtml);
     }, [post]);
 
@@ -94,7 +115,6 @@ export default function PostDetail() {
         if (htmlContent) Prism.highlightAll();
     }, [htmlContent]);
 
-    // 조건부 return은 hooks 다음에
     if (loading) return <div className="post-detail-loading">불러오는 중...</div>;
     if (error)   return <div className="post-detail-error">{error}</div>;
     if (!post)   return <div className="post-detail-error">게시글이 존재하지 않습니다.</div>;
@@ -124,9 +144,7 @@ export default function PostDetail() {
                     )}
                 </div>
                 <div className="post-detail-meta">
-                    {createdAt && (
-                        <span className="post-detail-date">{createdAt}</span>
-                    )}
+                    {createdAt && <span className="post-detail-date">{createdAt}</span>}
                     {isUpdated && (
                         <>
                             <span className="post-detail-divider" />
@@ -142,14 +160,77 @@ export default function PostDetail() {
                 dangerouslySetInnerHTML={{ __html: htmlContent }}
             />
 
-            {/* 하단 목록 버튼 */}
+            {/* 하단 네비게이션 */}
             <div className="post-detail-footer">
-                <button
-                    className="post-detail-list-btn"
-                    onClick={() => naviService.goToBack()}
-                >
-                    목록 보기 →
-                </button>
+
+                {/* 이전 글 카드 */}
+                {adjacent.prev ? (
+                    <button
+                        className="post-nav-card post-nav-prev"
+                        onClick={() => naviService.goToPost(adjacent.prev.id)}
+                        aria-label="이전 글로 이동"
+                    >
+                        <span className="post-nav-label">
+                            <span className="post-nav-arrow">←</span>
+                            이전 글
+                        </span>
+                        <span className="post-nav-title">{adjacent.prev.title}</span>
+                        {adjacent.prev.excerpt && (
+                            <span className="post-nav-excerpt">{adjacent.prev.excerpt}</span>
+                        )}
+                        {adjacent.prev.createdAt && (
+                            <span className="post-nav-date">{formatDate(adjacent.prev.createdAt)}</span>
+                        )}
+                    </button>
+                ) : (
+                    <div className="post-nav-card post-nav-empty" aria-disabled="true">
+                        <span className="post-nav-label">
+                            <span className="post-nav-arrow">←</span>
+                            이전 글
+                        </span>
+                        <span className="post-nav-none">첫 번째 글입니다</span>
+                    </div>
+                )}
+
+                {/* 목록 버튼 */}
+                {/*<button*/}
+                {/*    className="post-detail-list-btn"*/}
+                {/*    onClick={() => naviService.goToBack()}*/}
+                {/*    aria-label="목록으로"*/}
+                {/*>*/}
+                {/*    <span className="post-detail-list-icon">≡</span>*/}
+                {/*    목록*/}
+                {/*</button>*/}
+
+                {/* 다음 글 카드 */}
+                {adjacent.next ? (
+                    <button
+                        className="post-nav-card post-nav-next"
+                        onClick={() => naviService.goToPost(adjacent.next.id)}
+                        aria-label="다음 글로 이동"
+                    >
+                        <span className="post-nav-label post-nav-label-right">
+                            다음 글
+                            <span className="post-nav-arrow">→</span>
+                        </span>
+                        <span className="post-nav-title post-nav-title-right">{adjacent.next.title}</span>
+                        {adjacent.next.excerpt && (
+                            <span className="post-nav-excerpt post-nav-excerpt-right">{adjacent.next.excerpt}</span>
+                        )}
+                        {adjacent.next.createdAt && (
+                            <span className="post-nav-date post-nav-date-right">{formatDate(adjacent.next.createdAt)}</span>
+                        )}
+                    </button>
+                ) : (
+                    <div className="post-nav-card post-nav-empty post-nav-next" aria-disabled="true">
+                        <span className="post-nav-label post-nav-label-right">
+                            다음 글
+                            <span className="post-nav-arrow">→</span>
+                        </span>
+                        <span className="post-nav-none post-nav-none-right">마지막 글입니다</span>
+                    </div>
+                )}
+
             </div>
 
         </div>
