@@ -1,27 +1,6 @@
 import { useState } from "react";
+import commentApi from "../../../api/commentApi.js";
 import "./CommentSection.css";
-
-// 임시 더미 데이터 (실제 사용 시 API로 교체)
-const DUMMY_COMMENTS = [
-    {
-        id: 1,
-        author: "김개발",
-        createdAt: "2025-03-01T10:23:00",
-        content: "정말 유익한 글이네요! 덕분에 개념을 잡을 수 있었습니다. 감사합니다 :)",
-    },
-    {
-        id: 2,
-        author: "박코딩",
-        createdAt: "2025-03-02T14:05:00",
-        content: "예시 코드가 이해하기 쉽게 작성되어 있어서 좋았습니다. 혹시 심화 내용도 다루실 예정인가요?",
-    },
-    {
-        id: 3,
-        author: "이프론트",
-        createdAt: "2025-03-03T09:47:00",
-        content: "실무에서 바로 적용해봤는데 잘 동작합니다. 좋은 포스팅 감사합니다!",
-    },
-];
 
 function formatCommentDate(dateStr) {
     if (!dateStr) return "";
@@ -45,14 +24,15 @@ function formatCommentDate(dateStr) {
 }
 
 function CommentItem({ comment }) {
+    const authorLabel = comment.nickname ?? "작성자";
     return (
         <div className="comment-item">
             <div className="comment-item-header">
                 <div className="comment-avatar">
-                    {comment.author.charAt(0)}
+                    {authorLabel.charAt(0)}
                 </div>
                 <div className="comment-meta">
-                    <span className="comment-author">{comment.author}</span>
+                    <span className="comment-author">{authorLabel}</span>
                     <span className="comment-date">{formatCommentDate(comment.createdAt)}</span>
                 </div>
             </div>
@@ -61,33 +41,39 @@ function CommentItem({ comment }) {
     );
 }
 
-export default function CommentSection({ postId }) {
-    const [comments, setComments] = useState(DUMMY_COMMENTS);
-    const [author, setAuthor] = useState("");
+/**
+ * props:
+ *   postId        — 현재 게시글 ID (필수)
+ *   comments      — PostDetail에서 fetch한 댓글 배열
+ *   loading       — 댓글 로딩 상태
+ *   onCommentAdded — 새 댓글 등록 후 목록에 추가하기 위한 콜백
+ */
+export default function CommentSection({ postId, comments = [], loading = false, onCommentAdded }) {
+    const { createComment } = commentApi();
+
+    const [author, setAuthor]     = useState("");
     const [password, setPassword] = useState("");
-    const [content, setContent] = useState("");
+    const [content, setContent]   = useState("");
     const [submitting, setSubmitting] = useState(false);
-    const [error, setError] = useState("");
+    const [error, setError]       = useState("");
 
     const handleSubmit = async () => {
-        if (!author.trim()) { setError("닉네임을 입력해주세요."); return; }
+        if (!author.trim())   { setError("닉네임을 입력해주세요."); return; }
         if (!password.trim()) { setError("비밀번호를 입력해주세요."); return; }
-        if (!content.trim()) { setError("댓글 내용을 입력해주세요."); return; }
+        if (!content.trim())  { setError("댓글 내용을 입력해주세요."); return; }
         if (content.trim().length > 500) { setError("댓글은 500자 이내로 입력해주세요."); return; }
 
         setError("");
         setSubmitting(true);
 
-        // 실제 API 연동 시 아래 블록을 교체하세요
         try {
-            await new Promise((res) => setTimeout(res, 600)); // 임시 딜레이
-            const newComment = {
-                id: Date.now(),
+            const newComment = await createComment({
+                postId,
                 author: author.trim(),
-                createdAt: new Date().toISOString(),
+                password: password.trim(),
                 content: content.trim(),
-            };
-            setComments((prev) => [...prev, newComment]);
+            });
+            onCommentAdded?.(newComment);
             setAuthor("");
             setPassword("");
             setContent("");
@@ -107,12 +93,16 @@ export default function CommentSection({ postId }) {
             <div className="comment-section-header">
                 <h2 className="comment-section-title">
                     댓글
-                    <span className="comment-count">{comments.length}</span>
+                    {!loading && <span className="comment-count">{comments.length}</span>}
                 </h2>
             </div>
 
             {/* 댓글 목록 */}
-            {comments.length === 0 ? (
+            {loading ? (
+                <div className="comment-empty">
+                    <p>댓글을 불러오는 중...</p>
+                </div>
+            ) : comments.length === 0 ? (
                 <div className="comment-empty">
                     <span className="comment-empty-icon">💬</span>
                     <p>아직 댓글이 없습니다. 첫 댓글을 남겨보세요!</p>
@@ -181,11 +171,7 @@ export default function CommentSection({ postId }) {
                         onClick={handleSubmit}
                         disabled={submitting}
                     >
-                        {submitting ? (
-                            <span className="comment-submit-spinner" />
-                        ) : (
-                            "등록하기"
-                        )}
+                        {submitting ? <span className="comment-submit-spinner" /> : "등록하기"}
                     </button>
                 </div>
             </div>
