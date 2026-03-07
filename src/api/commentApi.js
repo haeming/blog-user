@@ -17,5 +17,31 @@ export default function commentApi() {
         });
     };
 
-    return { getCommentsByPostId, createComment };
+    const verifyPassword = (commentId, password) => {
+        return axiosInstance({
+            method: "post",
+            url: `/api/comments/${commentId}/verify-password`,
+            data: { password },
+        });
+    };
+
+    const updateComment = (commentId, body) => {
+        return axiosInstance({
+            method: "put",
+            url: `/api/comments/${commentId}`,
+            data: body,
+        });
+    };
+
+    // DELETE /api/comments/{id}
+    // body: { password }
+    const deleteComment = (commentId, password) => {
+        return axiosInstance({
+            method: "delete",
+            url: `/api/comments/${commentId}`,
+            data: { password },
+        });
+    };
+
+    return { getCommentsByPostId, createComment, verifyPassword, updateComment, deleteComment };
 }
