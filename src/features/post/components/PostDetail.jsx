@@ -49,7 +49,7 @@ export default function PostDetail() {
 
     const naviService = useNaviService();
 
-    // ── 게시글 fetch ──────────────────────────────────────────────
+    // 게시글 fetch
     useEffect(() => {
         const fetchPost = async () => {
             try {
@@ -66,7 +66,16 @@ export default function PostDetail() {
         fetchPost();
     }, [id, getPost]);
 
-    // ── 댓글 fetch ────────────────────────────────────────────────
+    // 댓글 fetch
+    const refreshComments = () => {
+        if (!id) return;
+        setCommentsLoading(true);
+        getCommentsByPostId(id)
+            .then((data) => setComments(Array.isArray(data) ? data : []))
+            .catch(() => setComments([]))
+            .finally(() => setCommentsLoading(false));
+    };
+
     useEffect(() => {
         if (!id) return;
         let isMounted = true;
@@ -92,7 +101,7 @@ export default function PostDetail() {
     //     return () => { isMounted = false; };
     // }, [id]);
 
-    // ── 카테고리 fetch ────────────────────────────────────────────
+    // 카테고리 fetch
     useEffect(() => {
         if (!id) { setCategoryName(""); return; }
         let isMounted = true;
@@ -110,7 +119,7 @@ export default function PostDetail() {
         return () => { isMounted = false; };
     }, [id, getCategoryByPostId]);
 
-    // ── 마크다운 → HTML ──────────────────────────────────────────
+    // 마크다운 → HTML
     const htmlContent = useMemo(() => {
         if (!post?.content) return "";
         let content = post.content;
@@ -239,6 +248,7 @@ export default function PostDetail() {
                 comments={comments}
                 loading={commentsLoading}
                 onCommentAdded={(newComment) => setComments((prev) => [...prev, newComment])}
+                onRefresh={refreshComments}
             />
 
         </div>
