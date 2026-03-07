@@ -1,0 +1,691 @@
+/* ══════════════════════════════════════════════════════
+   CommentSection.css
+   ══════════════════════════════════════════════════════ */
+
+/* 섹션 */
+.cs-section {
+    margin-top: 4em;
+    padding-top: 3em;
+    border-top: 2px solid var(--color-custom-gray5);
+}
+
+.cs-section-header {
+    margin-bottom: 1.6em;
+}
+
+.cs-section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--color-custom-black);
+}
+
+.cs-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.6em;
+    height: 1.6em;
+    padding: 0 0.4em;
+    background-color: var(--color-custom-red3);
+    color: var(--color-custom-white);
+    border-radius: 999px;
+    font-size: 0.7em;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* 목록 */
+.cs-list {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 빈 상태 */
+.cs-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6em;
+    padding: 3em 1em;
+    color: var(--color-sub-script);
+    font-size: 0.9em;
+    border: 1px dashed var(--color-custom-gray4);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.cs-empty-icon {
+    font-size: 1.8em;
+    opacity: 0.5;
+}
+
+/* 댓글 아이템 */
+.cs-comment-item {
+    padding: 1.2em 0;
+    border-bottom: 1px solid var(--color-custom-gray5);
+}
+
+.cs-comment-item:first-child {
+    border-top: 1px solid var(--color-custom-gray5);
+}
+
+/* 대댓글 */
+.cs-comment-reply {
+    background-color: var(--color-comment-reply-bg);
+    border-radius: 0 10px 10px 0;
+    border-bottom: 1px solid var(--color-custom-gray5);
+    padding: 1em 1em 1em 0;
+    position: relative;
+}
+
+.cs-reply-indent-line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: var(--color-custom-red3);
+    border-radius: 3px;
+    opacity: 0.25;
+}
+
+.cs-comment-inner {
+    display: flex;
+    gap: 0.85em;
+    padding-left: 1em;
+}
+
+.cs-comment-reply .cs-comment-inner {
+    padding-left: 2.2em;
+}
+
+/* 아바타 */
+.cs-avatar {
+    flex-shrink: 0;
+    width: 2.2em;
+    height: 2.2em;
+    border-radius: 50%;
+    background-color: var(--color-comment-avatar-bg);
+    border: 1.5px solid var(--color-comment-avatar-border);
+    color: var(--color-custom-red3);
+    font-size: 0.9em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cs-avatar-sm {
+    width: 1.9em;
+    height: 1.9em;
+    font-size: 0.82em;
+}
+
+/* 댓글 본문 영역 */
+.cs-comment-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.cs-comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.45em;
+    gap: 0.5em;
+    flex-wrap: wrap;
+}
+
+.cs-comment-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    flex-wrap: wrap;
+}
+
+.cs-nickname {
+    font-size: 0.88em;
+    font-weight: 700;
+    color: var(--color-custom-black);
+}
+
+.cs-reply-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.1em 0.55em;
+    background-color: var(--color-comment-reply-badge-bg);
+    color: var(--color-custom-red3);
+    border-radius: 999px;
+    font-size: 0.7em;
+    font-weight: 600;
+    border: 1px solid var(--color-comment-avatar-border);
+}
+
+.cs-comment-date {
+    font-size: 0.76em;
+    color: var(--color-sub-script);
+}
+
+.cs-comment-content {
+    font-size: 0.92em;
+    line-height: 1.7;
+    color: var(--color-post-detail-body);
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+/* 수정 / 삭제 / 답글 버튼 */
+.cs-comment-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    flex-shrink: 0;
+}
+
+.cs-action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.75em;
+    color: var(--color-sub-script);
+    padding: 0;
+    font-family: inherit;
+    transition: color 0.15s ease;
+}
+
+.cs-action-btn:hover {
+    color: var(--color-custom-red3);
+}
+
+.cs-action-delete:hover {
+    color: var(--color-comment-delete-color);
+}
+
+/* 인라인 수정 폼 */
+.cs-edit-form {
+    margin-top: 0.6em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.cs-edit-textarea {
+    width: 100%;
+    padding: 0.65em 0.85em;
+    border: 1px solid var(--color-custom-gray4);
+    border-radius: 8px;
+    font-size: 0.88em;
+    font-family: inherit;
+    line-height: 1.6;
+    color: var(--color-custom-black);
+    background-color: var(--color-custom-white);
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.cs-edit-textarea:focus {
+    border-color: var(--color-custom-red3);
+    box-shadow: 0 0 0 3px var(--color-comment-focus-ring);
+}
+
+.cs-edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5em;
+}
+
+.cs-edit-cancel-btn {
+    padding: 0.45em 1em;
+    background: none;
+    border: 1px solid var(--color-custom-gray4);
+    border-radius: 8px;
+    font-size: 0.82em;
+    color: var(--color-custom-gray3);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+}
+
+.cs-edit-cancel-btn:hover {
+    border-color: var(--color-custom-gray2);
+    color: var(--color-custom-black);
+}
+
+.cs-edit-submit-btn {
+    padding: 0.45em 1em;
+    background-color: var(--color-custom-red3);
+    border: none;
+    border-radius: 8px;
+    font-size: 0.82em;
+    color: var(--color-custom-white);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    transition: background-color 0.15s ease;
+}
+
+.cs-edit-submit-btn:hover {
+    background-color: var(--color-custom-red2);
+}
+
+/* 대댓글 입력 폼 */
+.cs-reply-form {
+    margin-top: 0.8em;
+    margin-left: 3.2em;
+    padding: 1em 1.2em;
+    background-color: var(--color-comment-reply-form-bg);
+    border: 1px solid var(--color-custom-gray5);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+}
+
+.cs-reply-form-header {
+    font-size: 0.8em;
+    color: var(--color-custom-red3);
+    font-weight: 600;
+}
+
+.cs-reply-form-header span {
+    font-weight: 700;
+}
+
+.cs-reply-form-row {
+    display: flex;
+    gap: 0.8em;
+}
+
+.cs-reply-form-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+}
+
+.cs-reply-textarea {
+    width: 100%;
+    padding: 0.65em 0.85em;
+    border: 1px solid var(--color-custom-gray4);
+    border-radius: 8px;
+    font-size: 0.88em;
+    font-family: inherit;
+    line-height: 1.6;
+    color: var(--color-custom-black);
+    background-color: var(--color-custom-white);
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.cs-reply-textarea:focus {
+    border-color: var(--color-custom-red3);
+    box-shadow: 0 0 0 3px var(--color-comment-focus-ring);
+}
+
+.cs-reply-error {
+    font-size: 0.8em;
+    color: var(--color-custom-red3);
+}
+
+.cs-reply-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5em;
+}
+
+.cs-reply-cancel-btn {
+    padding: 0.45em 1em;
+    background: none;
+    border: 1px solid var(--color-custom-gray4);
+    border-radius: 8px;
+    font-size: 0.82em;
+    color: var(--color-custom-gray3);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+}
+
+.cs-reply-cancel-btn:hover {
+    border-color: var(--color-custom-gray2);
+    color: var(--color-custom-black);
+}
+
+.cs-reply-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45em 1em;
+    background-color: var(--color-custom-red3);
+    border: none;
+    border-radius: 8px;
+    font-size: 0.82em;
+    color: var(--color-custom-white);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    min-width: 5em;
+    transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.cs-reply-submit-btn:hover:not(:disabled) {
+    background-color: var(--color-custom-red2);
+}
+
+.cs-reply-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* 비밀번호 모달 */
+.cs-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: var(--color-modal-backdrop);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: cs-fade-in 0.15s ease;
+}
+
+.cs-modal {
+    background-color: var(--color-custom-white);
+    border-radius: 14px;
+    padding: 2em 2em 1.6em;
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 8px 32px var(--color-modal-shadow);
+    animation: cs-slide-up 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+@keyframes cs-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes cs-slide-up {
+    from { transform: translateY(12px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+.cs-modal-title {
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--color-custom-black);
+    margin-bottom: 0.1em;
+}
+
+.cs-modal-desc {
+    font-size: 0.85em;
+    color: var(--color-sub-script);
+    margin-bottom: 0.4em;
+}
+
+.cs-modal-input {
+    width: 100%;
+    padding: 0.7em 0.9em;
+    border: 1px solid var(--color-custom-gray4);
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-family: inherit;
+    color: var(--color-custom-black);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.cs-modal-input:focus {
+    border-color: var(--color-custom-red3);
+    box-shadow: 0 0 0 3px var(--color-comment-focus-ring);
+}
+
+.cs-modal-input-error {
+    border-color: var(--color-custom-red3);
+}
+
+.cs-modal-error-msg {
+    font-size: 0.8em;
+    color: var(--color-custom-red3);
+}
+
+.cs-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6em;
+    margin-top: 0.6em;
+}
+
+.cs-modal-cancel-btn {
+    padding: 0.6em 1.2em;
+    background: none;
+    border: 1px solid var(--color-custom-gray4);
+    border-radius: 8px;
+    font-size: 0.88em;
+    color: var(--color-custom-gray3);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+}
+
+.cs-modal-cancel-btn:hover {
+    border-color: var(--color-custom-gray2);
+    color: var(--color-custom-black);
+}
+
+.cs-modal-confirm-btn {
+    padding: 0.6em 1.2em;
+    background-color: var(--color-custom-red3);
+    border: none;
+    border-radius: 8px;
+    font-size: 0.88em;
+    color: var(--color-custom-white);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    transition: background-color 0.15s ease;
+}
+
+.cs-modal-confirm-btn:hover {
+    background-color: var(--color-custom-red2);
+}
+
+.cs-modal-confirm-delete {
+    background-color: var(--color-comment-delete-color);
+}
+
+.cs-modal-confirm-delete:hover {
+    background-color: var(--color-comment-delete-hover);
+}
+
+/* 구분선 */
+.cs-divider {
+    margin: 2.5em 0;
+    border-top: 1px solid var(--color-custom-gray5);
+}
+
+/* 작성 폼 */
+.cs-form {
+    background-color: var(--color-comment-form-bg);
+    border: 1px solid var(--color-custom-gray5);
+    border-radius: 14px;
+    padding: 1.6em 1.8em;
+}
+
+.cs-form-title {
+    font-size: 0.95em;
+    font-weight: 700;
+    color: var(--color-custom-black);
+    margin-bottom: 1.1em;
+}
+
+.cs-form-row {
+    display: flex;
+    gap: 1em;
+    margin-bottom: 0.8em;
+}
+
+.cs-form-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+}
+
+.cs-form-label {
+    font-size: 0.76em;
+    font-weight: 600;
+    color: var(--color-sub-script);
+    letter-spacing: 0.02em;
+}
+
+.cs-form-input {
+    padding: 0.6em 0.9em;
+    border: 1px solid var(--color-custom-gray4);
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-family: inherit;
+    color: var(--color-custom-black);
+    background-color: var(--color-custom-white);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cs-form-input:focus {
+    border-color: var(--color-custom-red3);
+    box-shadow: 0 0 0 3px var(--color-comment-focus-ring);
+}
+
+.cs-form-input::placeholder {
+    color: var(--color-custom-gray1);
+}
+
+.cs-textarea-wrap {
+    position: relative;
+    margin-bottom: 0.5em;
+}
+
+.cs-textarea {
+    width: 100%;
+    padding: 0.75em 0.9em 2em;
+    border: 1px solid var(--color-custom-gray4);
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-family: inherit;
+    line-height: 1.7;
+    color: var(--color-custom-black);
+    background-color: var(--color-custom-white);
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.cs-textarea:focus {
+    border-color: var(--color-custom-red3);
+    box-shadow: 0 0 0 3px var(--color-comment-focus-ring);
+}
+
+.cs-textarea::placeholder {
+    color: var(--color-custom-gray1);
+}
+
+.cs-char-count {
+    position: absolute;
+    bottom: 0.6em;
+    right: 0.75em;
+    font-size: 0.73em;
+    color: var(--color-custom-gray2);
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.cs-char-warn {
+    color: var(--color-custom-red3);
+    font-weight: 600;
+}
+
+.cs-form-error {
+    font-size: 0.82em;
+    color: var(--color-custom-red3);
+    margin-bottom: 0.4em;
+}
+
+.cs-form-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.4em;
+}
+
+.cs-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65em 1.6em;
+    background-color: var(--color-custom-red3);
+    color: var(--color-custom-white);
+    border: none;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    min-width: 6em;
+    transition: background-color 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
+}
+
+.cs-submit-btn:hover:not(:disabled) {
+    background-color: var(--color-custom-red2);
+    transform: translateY(-1px);
+}
+
+.cs-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* 스피너 */
+.cs-spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: var(--color-custom-white);
+    border-radius: 50%;
+    animation: cs-spin 0.7s linear infinite;
+}
+
+@keyframes cs-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 모바일 */
+@media (max-width: 640px) {
+    .cs-form {
+        padding: 1.2em 1em;
+    }
+
+    .cs-form-row,
+    .cs-reply-form-row {
+        flex-direction: column;
+        gap: 0.6em;
+    }
+
+    .cs-reply-form {
+        margin-left: 1em;
+    }
+
+    .cs-comment-reply .cs-comment-inner {
+        padding-left: 1.4em;
+    }
+}

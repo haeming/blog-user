@@ -55,6 +55,20 @@
 
     --color-js-code-string: #9a8e16;
 
+    /* comment 스타일 */
+    --color-comment-avatar-bg: rgba(228, 27, 96, 0.08);
+    --color-comment-avatar-border: rgba(228, 27, 96, 0.2);
+    --color-comment-form-bg: #fafafa;
+    --color-comment-focus-ring: rgba(228, 27, 96, 0.12);
+
+    --color-comment-reply-bg: rgba(244, 244, 244, 0.5);
+    --color-comment-reply-badge-bg: rgba(228, 27, 96, 0.07);
+    --color-comment-reply-form-bg: #f9f9f9;
+    --color-comment-delete-color: #d93025;
+    --color-comment-delete-hover: #b02419;
+    --color-modal-backdrop: rgba(0, 0, 0, 0.35);
+    --color-modal-shadow: rgba(0, 0, 0, 0.12);
+
     /* 폰트 사이즈 커스텀 */
     --text-tiny: 0.75rem;
     --text-tiny2: 0.9rem;
