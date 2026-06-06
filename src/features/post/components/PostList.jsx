@@ -3,7 +3,7 @@ import postApi from "../../../api/postApi.js";
 import PostItem from "./PostItem.jsx";
 import "./PostList.css";
 import useNaviService from "../../../hooks/useNaviService.js";
-import { useNavigationType } from "react-router-dom";
+import { useNavigationType, useSearchParams } from "react-router-dom";
 import useScrollRestore from "../../../utils/useScrollRestore.js"
 
 export default function PostList() {
@@ -14,6 +14,8 @@ export default function PostList() {
     const [totalPages, setTotalPages] = useState(0);
     const naviService = useNaviService();
     const navigationType = useNavigationType();
+    const [searchParams] = useSearchParams();
+    const categoryId = searchParams.get("category");
 
     const { savedScroll, savePage, clear } = useScrollRestore('post-list');
 
@@ -41,10 +43,19 @@ export default function PostList() {
         }
     }, []);
 
+    // 카테고리 변경 시 페이지 초기화
+    const prevCategoryRef = useRef(categoryId);
+    useEffect(() => {
+        if (prevCategoryRef.current !== categoryId) {
+            prevCategoryRef.current = categoryId;
+            setPage(0);
+        }
+    }, [categoryId]);
+
     useEffect(() => {
         const postList = async () => {
             try {
-                const response = await getPosts(page, size, sort);
+                const response = await getPosts(page, size, sort, categoryId);
 
                 // 페이지 범위 보정
                 if (page >= response.totalPages && response.totalPages > 0) {
@@ -59,7 +70,7 @@ export default function PostList() {
             }
         };
         postList();
-    }, [page, size, sort, getPosts]);
+    }, [page, size, sort, categoryId, getPosts]);
 
     // 스크롤 복원: posts가 로드되고 아직 복원 안 했을 때
     useEffect(() => {

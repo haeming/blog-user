@@ -8,5 +8,12 @@ export default function categoryApi(){
         });
     }
 
-    return { getCategoryByPostId };
+    const getCategories = () => {
+        return axiosInstance({
+            method: "get",
+            url: "/api/categories",
+        });
+    }
+
+    return { getCategoryByPostId, getCategories };
 }

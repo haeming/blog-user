@@ -19,5 +19,9 @@ export default function useNaviService(){
         navigate(`/posts/${id}`);
     }
 
-    return {goToBack, goToHome, goToPosts, goToPost};
+    const goToCategory = (categoryId) => {
+        navigate(`/posts?category=${categoryId}`);
+    }
+
+    return {goToBack, goToHome, goToPosts, goToPost, goToCategory};
 }
