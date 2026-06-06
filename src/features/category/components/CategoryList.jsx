@@ -29,6 +29,12 @@ export default function CategoryList() {
         <div className="category-list-container">
             <div className="category-list-title">CATEGORY</div>
             <div className="category-list">
+                <div
+                    className={`category-list-item ${!activeCategoryId ? "active" : ""}`}
+                    onClick={() => naviService.goToPosts()}
+                >
+                    전체보기
+                </div>
                 {categories.map((cat) => (
                     <div
                         key={cat.id}
