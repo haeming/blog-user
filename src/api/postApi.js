@@ -9,12 +9,10 @@ export default function postApi(){
     }
 
     const getPosts = (page = 0, size = 10, sort="createdAt,desc", categoryId) => {
-        const params = { page, size, sort };
-        if (categoryId) params.categoryId = categoryId;
         return axiosInstance({
             method: "get",
-            url: "/api/posts",
-            params,
+            url: categoryId ? `/api/categories/${categoryId}/posts` : "/api/posts",
+            params: { page, size, sort },
         });
     };
 
