@@ -35,7 +35,7 @@ export default function CategoryList() {
                         className={`category-list-item ${String(cat.id) === activeCategoryId ? "active" : ""}`}
                         onClick={() => naviService.goToCategory(cat.id)}
                     >
-                        {cat.name}
+                        {cat.categoryName}
                     </div>
                 ))}
             </div>
