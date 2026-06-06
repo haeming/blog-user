@@ -15,16 +15,30 @@ export default function PostList() {
     const naviService = useNaviService();
     const navigationType = useNavigationType();
 
-    const { savedScroll, savedPage, savePage, clear } = useScrollRestore('post-list');
+    const { savedScroll, savePage, clear } = useScrollRestore('post-list');
 
-    // POP(뒤로가기)이면 복원, 아니면 0부터
-    const isBack = navigationType === 'POP';
-    const [page, setPage] = useState(isBack ? savedPage : 0);
-    const shouldRestoreRef = useRef(isBack && savedScroll > 0);
+    // 페이지 복원 조건: 글 상세에서 돌아오거나 새로고침일 때만
+    const perfNavEntry = performance.getEntriesByType?.('navigation')?.[0];
+    const isPageRefresh = perfNavEntry?.type === 'reload' && navigationType === 'POP';
+    const fromDetail = sessionStorage.getItem('post-list-from-detail') === 'true';
+    const shouldRestore = fromDetail || isPageRefresh;
+
+    const [page, setPage] = useState(() => {
+        if (shouldRestore) {
+            const saved = Number(sessionStorage.getItem('post-list-page'));
+            return isNaN(saved) ? 0 : saved;
+        }
+        return 0;
+    });
+    const shouldRestoreRef = useRef(shouldRestore && savedScroll > 0);
     const restoredRef = useRef(false);
 
     useEffect(() => {
-        if (!isBack) clear();
+        sessionStorage.removeItem('post-list-from-detail');
+        if (!shouldRestore) {
+            clear();
+            sessionStorage.removeItem('post-list-page');
+        }
     }, []);
 
     useEffect(() => {
@@ -65,6 +79,7 @@ export default function PostList() {
     const handlePageChange = (nextPage) => {
         shouldRestoreRef.current = false;
         savePage(nextPage);
+        sessionStorage.setItem('post-list-page', String(nextPage));
         setPage(nextPage);
         window.scrollTo(0, 0);
     };
@@ -88,6 +103,8 @@ export default function PostList() {
                     post={post}
                     onClick={() => {
                         savePage(page);
+                        sessionStorage.setItem('post-list-page', String(page));
+                        sessionStorage.setItem('post-list-from-detail', 'true');
                         naviService.goToPost(post.id);
                     }}
                 />
