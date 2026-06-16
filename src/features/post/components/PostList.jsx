@@ -46,19 +46,27 @@ export default function PostList() {
     // 카테고리 변경 시 페이지 초기화
     const prevCategoryRef = useRef(categoryId);
     useEffect(() => {
-        if (prevCategoryRef.current !== categoryId) {
-            prevCategoryRef.current = categoryId;
-            setPage(0);
-        }
-    }, [categoryId]);
+        let cancelled = false;
 
-    useEffect(() => {
+        const isNewCategory = prevCategoryRef.current !== categoryId;
+        const effectivePage = isNewCategory ? 0 : page;
+        prevCategoryRef.current = categoryId;
+
+        if (isNewCategory) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setPage(0);
+            clear();
+            sessionStorage.removeItem('post-list-page');
+            shouldRestoreRef.current = false;
+        }
+
         const postList = async () => {
             try {
-                const response = await getPosts(page, size, sort, categoryId);
+                const response = await getPosts(effectivePage, size, sort, categoryId);
+                if (cancelled) return;
 
                 // 페이지 범위 보정
-                if (page >= response.totalPages && response.totalPages > 0) {
+                if (effectivePage >= response.totalPages && response.totalPages > 0) {
                     setPage(response.totalPages - 1);
                     return;
                 }
@@ -66,10 +74,13 @@ export default function PostList() {
                 setPosts(response.content || []);
                 setTotalPages(response.totalPages || 0);
             } catch (e) {
-                console.error("postList 불러오기 에러", e);
+                if (!cancelled) {
+                    console.error("postList 불러오기 에러", e);
+                }
             }
         };
         postList();
+        return () => { cancelled = true; };
     }, [page, size, sort, categoryId, getPosts]);
 
     // 스크롤 복원: posts가 로드되고 아직 복원 안 했을 때
