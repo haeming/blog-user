@@ -57,6 +57,7 @@ export default function PostList() {
             setPage(0);
             clear();
             sessionStorage.removeItem('post-list-page');
+            shouldRestoreRef.current = false;
         }
 
         const postList = async () => {
