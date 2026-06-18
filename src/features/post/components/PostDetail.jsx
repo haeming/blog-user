@@ -16,34 +16,17 @@ import baseURL from "../../../config/apiBaseUrl.js";
 import CommentSection from "./CommentSection.jsx";
 import "./PostDetail.css";
 
-// 🔧 이전/다음 글 API 미구현 — 완성 후 아래 DUMMY_ADJACENT 제거 후
-//    주석 처리된 useEffect 블록을 활성화하세요
-const DUMMY_ADJACENT = {
-    prev: {
-        id: "prev-001",
-        title: "React에서 상태 관리를 효율적으로 하는 방법",
-        excerpt: "useState, useReducer, Zustand 등 다양한 상태 관리 옵션을 비교하고, 프로젝트 규모에 따라 어떤 전략을 선택해야 할지 정리합니다.",
-        createdAt: "2025-02-20T10:00:00",
-    },
-    next: {
-        id: "next-001",
-        title: "Tailwind CSS v4 마이그레이션 가이드",
-        excerpt: "기존 v3 프로젝트를 v4로 업그레이드할 때 주의해야 할 Breaking Change와 새로운 유틸리티 클래스 사용법을 정리했습니다.",
-        createdAt: "2025-03-01T10:00:00",
-    },
-};
-
 export default function PostDetail() {
     const { id } = useParams();
-    const { getPost }             = useMemo(() => postApi(), []);
-    const { getCategoryByPostId } = useMemo(() => categoryApi(), []);
-    const { getCommentsByPostId } = useMemo(() => commentApi(), []);
+    const { getPost, getAdjacentPosts } = postApi();
+    const { getCategoryByPostId }       = categoryApi();
+    const { getCommentsByPostId }       = commentApi();
 
     const [post, setPost]                       = useState(null);
     const [categoryName, setCategoryName]       = useState("");
     const [loading, setLoading]                 = useState(true);
     const [error, setError]                     = useState(null);
-    const [adjacent, setAdjacent]               = useState(DUMMY_ADJACENT); // 🔧 API 연동 시 { prev: null, next: null }
+    const [adjacent, setAdjacent]               = useState({ prev: null, next: null });
     const [comments, setComments]               = useState([]);
     const [commentsLoading, setCommentsLoading] = useState(true);
 
@@ -64,7 +47,7 @@ export default function PostDetail() {
             }
         };
         fetchPost();
-    }, [id, getPost]);
+    }, [id]);
 
     // 댓글 fetch
     const refreshComments = () => {
@@ -85,21 +68,20 @@ export default function PostDetail() {
             .catch(() => { if (isMounted) setComments([]); })
             .finally(() => { if (isMounted) setCommentsLoading(false); });
         return () => { isMounted = false; };
-    }, [id, getCommentsByPostId]);
+    }, [id]);
 
-    // ── 이전/다음 글 fetch (API 구현 후 주석 해제 + DUMMY_ADJACENT 제거) ──
-    // useEffect(() => {
-    //     if (!id) return;
-    //     const { getAdjacentPosts } = postApi();
-    //     let isMounted = true;
-    //     setAdjacent({ prev: null, next: null });
-    //     getAdjacentPosts(id)
-    //         .then((data) => {
-    //             if (isMounted) setAdjacent({ prev: data?.prev ?? null, next: data?.next ?? null });
-    //         })
-    //         .catch(() => { if (isMounted) setAdjacent({ prev: null, next: null }); });
-    //     return () => { isMounted = false; };
-    // }, [id]);
+    // 이전/다음 글 fetch
+    useEffect(() => {
+        if (!id) return;
+        let isMounted = true;
+        setAdjacent({ prev: null, next: null });
+        getAdjacentPosts(id)
+            .then((data) => {
+                if (isMounted) setAdjacent({ prev: data?.prev ?? null, next: data?.next ?? null });
+            })
+            .catch(() => { if (isMounted) setAdjacent({ prev: null, next: null }); });
+        return () => { isMounted = false; };
+    }, [id]);
 
     // 카테고리 fetch
     useEffect(() => {
@@ -117,7 +99,7 @@ export default function PostDetail() {
             })
             .catch(() => { if (isMounted) setCategoryName(""); });
         return () => { isMounted = false; };
-    }, [id, getCategoryByPostId]);
+    }, [id]);
 
     // 마크다운 → HTML
     const htmlContent = useMemo(() => {

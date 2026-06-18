@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import categoryApi from "../../../api/categoryApi.js";
 import useNaviService from "../../../hooks/useNaviService.js";
 import { useSearchParams } from "react-router-dom";
 import "./CategoryList.css";
 
 export default function CategoryList() {
-    const { getCategories } = useMemo(() => categoryApi(), []);
+    const { getCategories } = categoryApi();
     const [categories, setCategories] = useState([]);
     const naviService = useNaviService();
     const [searchParams] = useSearchParams();
@@ -21,7 +21,7 @@ export default function CategoryList() {
             }
         };
         fetchCategories();
-    }, [getCategories]);
+    }, []);
 
     if (!categories.length) return null;
 
