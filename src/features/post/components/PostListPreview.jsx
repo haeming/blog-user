@@ -1,11 +1,11 @@
-import {useEffect, useMemo, useState} from "react";
+import { useEffect, useState } from "react";
 import postApi from "../../../api/postApi.js";
 import PostItem from "./PostItem.jsx";
 import "./PostListPreview.css";
 import useNaviService from "../../../hooks/useNaviService.js";
 
 export default function PostListPreview(){
-    const { getPosts } = useMemo(() => postApi(), []);
+    const { getPosts } = postApi();
     const [posts, setPosts] = useState([]);
     const naviService = useNaviService();
 
@@ -20,7 +20,7 @@ export default function PostListPreview(){
             }
         }
         fetchRecentPosts();
-    }, [getPosts]);
+    }, []);
 
     if (!posts.length) return null;
 

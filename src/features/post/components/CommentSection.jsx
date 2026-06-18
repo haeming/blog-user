@@ -71,7 +71,7 @@ function PasswordModal({ mode, onConfirm, onCancel, error }) {
 ══════════════════════════════════════════════════════ */
 function CommentItem({ comment, postId, onRefresh }) {
     const isReply = comment.parentId !== null;
-    const { verifyPassword, updateComment, deleteComment, createComment } = useMemo(() => commentApi(), []);
+    const { verifyPassword, updateComment, deleteComment, createComment } = commentApi();
 
     /* 모달 상태 */
     const [modal, setModal]       = useState(null); // null | "edit" | "delete"
@@ -303,7 +303,7 @@ function CommentItem({ comment, postId, onRefresh }) {
    CommentSection (메인)
 ══════════════════════════════════════════════════════ */
 export default function CommentSection({ postId, comments = [], loading = false, onCommentAdded, onRefresh }) {
-    const { createComment } = useMemo(() => commentApi(), []);
+    const { createComment } = commentApi();
 
     const [nickname, setNickname]   = useState("");
     const [password, setPassword]   = useState("");

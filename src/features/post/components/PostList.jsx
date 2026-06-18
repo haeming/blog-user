@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import postApi from "../../../api/postApi.js";
 import PostItem from "./PostItem.jsx";
 import "./PostList.css";
@@ -7,7 +7,7 @@ import { useNavigationType, useSearchParams } from "react-router-dom";
 import useScrollRestore from "../../../utils/useScrollRestore.js"
 
 export default function PostList() {
-    const { getPosts } = useMemo(() => postApi(), []);
+    const { getPosts } = postApi();
     const [posts, setPosts] = useState([]);
     const [size] = useState(10);
     const [sort] = useState("createdAt,desc");
@@ -81,7 +81,7 @@ export default function PostList() {
         };
         postList();
         return () => { cancelled = true; };
-    }, [page, size, sort, categoryId, getPosts]);
+    }, [page, size, sort, categoryId]);
 
     // 스크롤 복원: posts가 로드되고 아직 복원 안 했을 때
     useEffect(() => {

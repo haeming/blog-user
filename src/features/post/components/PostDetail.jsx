@@ -18,9 +18,9 @@ import "./PostDetail.css";
 
 export default function PostDetail() {
     const { id } = useParams();
-    const { getPost, getAdjacentPosts } = useMemo(() => postApi(), []);
-    const { getCategoryByPostId }       = useMemo(() => categoryApi(), []);
-    const { getCommentsByPostId }       = useMemo(() => commentApi(), []);
+    const { getPost, getAdjacentPosts } = postApi();
+    const { getCategoryByPostId }       = categoryApi();
+    const { getCommentsByPostId }       = commentApi();
 
     const [post, setPost]                       = useState(null);
     const [categoryName, setCategoryName]       = useState("");
@@ -47,7 +47,7 @@ export default function PostDetail() {
             }
         };
         fetchPost();
-    }, [id, getPost]);
+    }, [id]);
 
     // 댓글 fetch
     const refreshComments = () => {
@@ -68,7 +68,7 @@ export default function PostDetail() {
             .catch(() => { if (isMounted) setComments([]); })
             .finally(() => { if (isMounted) setCommentsLoading(false); });
         return () => { isMounted = false; };
-    }, [id, getCommentsByPostId]);
+    }, [id]);
 
     // 이전/다음 글 fetch
     useEffect(() => {
@@ -81,7 +81,7 @@ export default function PostDetail() {
             })
             .catch(() => { if (isMounted) setAdjacent({ prev: null, next: null }); });
         return () => { isMounted = false; };
-    }, [id, getAdjacentPosts]);
+    }, [id]);
 
     // 카테고리 fetch
     useEffect(() => {
@@ -99,7 +99,7 @@ export default function PostDetail() {
             })
             .catch(() => { if (isMounted) setCategoryName(""); });
         return () => { isMounted = false; };
-    }, [id, getCategoryByPostId]);
+    }, [id]);
 
     // 마크다운 → HTML
     const htmlContent = useMemo(() => {
