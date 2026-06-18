@@ -16,5 +16,12 @@ export default function postApi(){
         });
     };
 
-    return {getPost, getPosts};
+    const getAdjacentPosts = (id) => {
+        return axiosInstance({
+            method: "get",
+            url: `/api/posts/${id}/adjacent`,
+        });
+    };
+
+    return {getPost, getPosts, getAdjacentPosts};
 }
