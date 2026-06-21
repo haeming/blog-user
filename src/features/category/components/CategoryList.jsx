@@ -5,8 +5,9 @@ import { useSearchParams } from "react-router-dom";
 import "./CategoryList.css";
 
 export default function CategoryList() {
-    const { getCategories } = categoryApi();
+    const { getCategories, getPostCountByCategoryId } = categoryApi();
     const [categories, setCategories] = useState([]);
+    const [categoryPostCounts, setCategoryPostCounts] = useState({});
     const naviService = useNaviService();
     const [searchParams] = useSearchParams();
     const activeCategoryId = searchParams.get("category");
@@ -15,7 +16,17 @@ export default function CategoryList() {
         const fetchCategories = async () => {
             try {
                 const data = await getCategories();
+
                 setCategories(Array.isArray(data) ? data : []);
+
+                const counts = {};
+                await Promise.all(
+                    data.map(async (category) => {
+                        counts[category.id] = await getPostCountByCategoryId(category.id);
+                    })
+                );
+
+                setCategoryPostCounts(counts);
             } catch (e) {
                 console.error("카테고리 목록 불러오기 에러", e);
             }
@@ -41,7 +52,7 @@ export default function CategoryList() {
                         className={`category-list-item ${String(cat.id) === activeCategoryId ? "active" : ""}`}
                         onClick={() => naviService.goToCategory(cat.id)}
                     >
-                        {cat.categoryName}
+                        {cat.categoryName} ({categoryPostCounts[cat.id] ?? 0})
                     </div>
                 ))}
             </div>
