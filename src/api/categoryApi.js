@@ -1,26 +1,26 @@
-import {axiosInstance} from "./axiosInstance.js";
+import { axiosInstance } from "./axiosInstance.js";
 
-export default function categoryApi(){
-    const getCategoryByPostId = (postId) => {
+const categoryApi = {
+    getCategoryByPostId(postId) {
         return axiosInstance({
-                method: "get",
-                url: `/api/categories/post/${postId}`,
+            method: "get",
+            url: `/api/categories/post/${postId}`,
         });
-    }
+    },
 
-    const getCategories = () => {
+    getCategories() {
         return axiosInstance({
             method: "get",
             url: "/api/categories",
         });
-    }
+    },
 
-    const getPostCountByCategoryId = (categoryId) => {
+    getPostCountByCategoryId(categoryId) {
         return axiosInstance({
             method: "get",
             url: `/api/categories/${categoryId}/post-count`,
         });
-    };
+    }
+};
 
-    return { getCategoryByPostId, getCategories, getPostCountByCategoryId };
-}
+export default categoryApi;

@@ -5,7 +5,7 @@ import "./PostListPreview.css";
 import useNaviService from "../../../hooks/useNaviService.js";
 
 export default function PostListPreview(){
-    const { getPosts } = postApi();
+    const { getPosts } = postApi;
     const [posts, setPosts] = useState([]);
     const naviService = useNaviService();
 

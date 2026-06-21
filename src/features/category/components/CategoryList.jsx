@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import "./CategoryList.css";
 
 export default function CategoryList() {
-    const { getCategories, getPostCountByCategoryId } = categoryApi();
+    const { getCategories, getPostCountByCategoryId } = categoryApi;
     const [categories, setCategories] = useState([]);
     const [categoryPostCounts, setCategoryPostCounts] = useState({});
     const naviService = useNaviService();

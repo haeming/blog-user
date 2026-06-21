@@ -18,9 +18,9 @@ import "./PostDetail.css";
 
 export default function PostDetail() {
     const { id } = useParams();
-    const { getPost, getAdjacentPosts } = postApi();
-    const { getCategoryByPostId }       = categoryApi();
-    const { getCommentsByPostId }       = commentApi();
+    const { getPost, getAdjacentPosts } = postApi;
+    const { getCategoryByPostId }       = categoryApi;
+    const { getCommentsByPostId }       = commentApi;
 
     const [post, setPost]                       = useState(null);
     const [categoryName, setCategoryName]       = useState("");
