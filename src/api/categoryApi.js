@@ -15,5 +15,12 @@ export default function categoryApi(){
         });
     }
 
-    return { getCategoryByPostId, getCategories };
+    const getPostCountByCategoryId = (categoryId) => {
+        return axiosInstance({
+            method: "get",
+            url: `/api/categories/${categoryId}/post-count`,
+        });
+    };
+
+    return { getCategoryByPostId, getCategories, getPostCountByCategoryId };
 }
