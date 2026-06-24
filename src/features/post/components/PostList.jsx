@@ -7,7 +7,7 @@ import { useNavigationType, useSearchParams } from "react-router-dom";
 import useScrollRestore from "../../../utils/useScrollRestore.js"
 
 export default function PostList() {
-    const { getPosts } = postApi();
+    const { getPosts } = postApi;
     const [posts, setPosts] = useState([]);
     const [size] = useState(10);
     const [sort] = useState("createdAt,desc");
