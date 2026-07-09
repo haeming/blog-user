@@ -132,7 +132,7 @@ export default function PostDetail() {
             {/* 뒤로가기 */}
             <button
                 className="post-detail-back-btn"
-                onClick={() => naviService.goToBack()}
+                onClick={() => naviService.goToPosts()}
             >
                 <span className="post-detail-back-arrow">←</span>
                 목록으로
