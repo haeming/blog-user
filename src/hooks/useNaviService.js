@@ -12,7 +12,7 @@ export default function useNaviService(){
     }
 
     const goToPosts = (url) => {
-        navigate(url || "/posts");
+        navigate(typeof url === "string" ? url : "/posts");
     }
 
     const goToPost = (id, state) => {
