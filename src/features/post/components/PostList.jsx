@@ -127,7 +127,8 @@ export default function PostList() {
                         savePage(page);
                         sessionStorage.setItem('post-list-page', String(page));
                         sessionStorage.setItem('post-list-from-detail', 'true');
-                        naviService.goToPost(post.id);
+                        const query = searchParams.toString();
+                        naviService.goToPost(post.id, { listUrl: query ? `/posts?${query}` : '/posts' });
                     }}
                 />
             ))}

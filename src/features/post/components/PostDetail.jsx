@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 import Prism from "prismjs";
@@ -18,6 +18,8 @@ import "./PostDetail.css";
 
 export default function PostDetail() {
     const { id } = useParams();
+    const location = useLocation();
+    const [listUrl] = useState(location.state?.listUrl ?? "/posts");
     const { getPost, getAdjacentPosts } = postApi;
     const { getCategoryByPostId }       = categoryApi;
     const { getCommentsByPostId }       = commentApi;
@@ -132,7 +134,7 @@ export default function PostDetail() {
             {/* 뒤로가기 */}
             <button
                 className="post-detail-back-btn"
-                onClick={() => naviService.goToBack()}
+                onClick={() => naviService.goToPosts(listUrl)}
             >
                 <span className="post-detail-back-arrow">←</span>
                 목록으로
