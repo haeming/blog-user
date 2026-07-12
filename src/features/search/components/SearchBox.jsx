@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import useNaviService from "../../../hooks/useNaviService.js";
 import "./SearchBox.css";
@@ -6,7 +6,12 @@ import "./SearchBox.css";
 export default function SearchBox() {
     const naviService = useNaviService();
     const [searchParams] = useSearchParams();
-    const [keyword, setKeyword] = useState(searchParams.get("search") ?? "");
+    const searchFromUrl = searchParams.get("search") ?? "";
+    const [keyword, setKeyword] = useState(searchFromUrl);
+
+    useEffect(() => {
+        setKeyword(searchFromUrl);
+    }, [searchFromUrl]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
