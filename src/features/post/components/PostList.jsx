@@ -16,6 +16,7 @@ export default function PostList() {
     const navigationType = useNavigationType();
     const [searchParams] = useSearchParams();
     const categoryId = searchParams.get("category");
+    const keyword = searchParams.get("search");
 
     const { savedScroll, savePage, clear } = useScrollRestore('post-list');
 
@@ -43,16 +44,17 @@ export default function PostList() {
         }
     }, []);
 
-    // 카테고리 변경 시 페이지 초기화
-    const prevCategoryRef = useRef(categoryId);
+    // 카테고리/검색어 변경 시 페이지 초기화
+    const filterKey = `${categoryId ?? ""}|${keyword ?? ""}`;
+    const prevFilterRef = useRef(filterKey);
     useEffect(() => {
         let cancelled = false;
 
-        const isNewCategory = prevCategoryRef.current !== categoryId;
-        const effectivePage = isNewCategory ? 0 : page;
-        prevCategoryRef.current = categoryId;
+        const isNewFilter = prevFilterRef.current !== filterKey;
+        const effectivePage = isNewFilter ? 0 : page;
+        prevFilterRef.current = filterKey;
 
-        if (isNewCategory) {
+        if (isNewFilter) {
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setPage(0);
             clear();
@@ -62,7 +64,7 @@ export default function PostList() {
 
         const postList = async () => {
             try {
-                const response = await getPosts(effectivePage, size, sort, categoryId);
+                const response = await getPosts(effectivePage, size, sort, categoryId, keyword);
                 if (cancelled) return;
 
                 // 페이지 범위 보정
@@ -81,7 +83,7 @@ export default function PostList() {
         };
         postList();
         return () => { cancelled = true; };
-    }, [page, size, sort, categoryId]);
+    }, [page, size, sort, categoryId, keyword]);
 
     // 스크롤 복원: posts가 로드되고 아직 복원 안 했을 때
     useEffect(() => {
@@ -106,7 +108,13 @@ export default function PostList() {
         window.scrollTo(0, 0);
     };
 
-    if (!posts.length) return <div className="post-list-empty">게시글이 없습니다.</div>;
+    if (!posts.length) {
+        return (
+            <div className="post-list-empty">
+                {keyword ? `"${keyword}"에 대한 검색 결과가 없습니다.` : "게시글이 없습니다."}
+            </div>
+        );
+    }
 
     const getPageNumbers = () => {
         const pages = [];
@@ -117,7 +125,9 @@ export default function PostList() {
     return (
         <div className="post-list-container">
             <div className="post-list-preview-header">
-                <h1 className="post-list-preview-title">전체 글</h1>
+                <h1 className="post-list-preview-title">
+                    {keyword ? `"${keyword}" 검색 결과` : "전체 글"}
+                </h1>
             </div>
             {posts.map((post) => (
                 <PostItem
