@@ -1,6 +1,6 @@
 .search-box {
     padding: 0 2em;
-    margin-top: 1.5em;
+    margin-top: -1em;
 }
 
 .search-box-field {
@@ -11,7 +11,7 @@
 
 .search-box-input {
     width: 100%;
-    padding: 0.55em 0.9em 0.55em 2.2em;
+    padding: 0.55em 2.2em 0.55em 0.9em;
     border: 1px solid var(--color-custom-gray4);
     border-radius: 8px;
     font-size: 0.85em;
@@ -33,7 +33,7 @@
 
 .search-box-icon-btn {
     position: absolute;
-    left: 0.7em;
+    right: 0.7em;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
