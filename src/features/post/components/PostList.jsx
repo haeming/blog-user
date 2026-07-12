@@ -83,7 +83,7 @@ export default function PostList() {
         };
         postList();
         return () => { cancelled = true; };
-    }, [page, size, sort, categoryId, keyword]);
+    }, [page, size, sort, categoryId, keyword, filterKey]);
 
     // 스크롤 복원: posts가 로드되고 아직 복원 안 했을 때
     useEffect(() => {
