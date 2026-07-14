@@ -1,5 +1,6 @@
 import "./SideBar.css"
 import CategoryList from "../features/category/components/CategoryList.jsx";
+import SearchBox from "../features/search/components/SearchBox.jsx";
 
 export default function SideBar(){
     return(
@@ -23,6 +24,7 @@ export default function SideBar(){
                 </p>
                 <p className="side-email-text">goalsgoals0417@gmail.com</p>
             </div>
+            <SearchBox />
             <CategoryList />
         </>
     )
